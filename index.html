@@ -3,8 +3,46 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    <meta name="description" content="Constellation Overwatch - Open Source C4ISR Data Fabric for edge drone/robotic communication, sensor streaming, and fleet management">
+    
+    <!-- Primary Meta Tags -->
     <title>Constellation Overwatch - Open Source C4ISR Data Fabric</title>
+    <meta name="title" content="Constellation Overwatch - Open Source C4ISR Data Fabric">
+    <meta name="description" content="Edge C4ISR Server Mesh Fabric for hybrid drone/robotic pub/sub communication, sensor streaming, and fleet management. Built with Go, NATS, and modern web technologies.">
+    <meta name="keywords" content="C4ISR, drone communication, robotic mesh, NATS, golang, edge computing, telemetry streaming, pub/sub, constellation, overwatch, open source, surveillance, reconnaissance">
+    <meta name="author" content="Constellation Overwatch">
+    <meta name="robots" content="index, follow">
+    <link rel="canonical" href="https://constellation-overwatch.github.io/">
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/svg+xml" href="public/overwatch.svg">
+    <link rel="icon" type="image/png" href="public/overwatch.svg">
+    <link rel="apple-touch-icon" href="public/overwatch.svg">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://constellation-overwatch.github.io/">
+    <meta property="og:title" content="Constellation Overwatch - Open Source C4ISR Data Fabric">
+    <meta property="og:description" content="Edge C4ISR Server Mesh Fabric for hybrid drone/robotic pub/sub communication, sensor streaming, and fleet management.">
+    <meta property="og:image" content="https://constellation-overwatch.github.io/public/overwatch.svg">
+    <meta property="og:site_name" content="Constellation Overwatch">
+    
+    <!-- Twitter -->
+    <meta property="twitter:card" content="summary_large_image">
+    <meta property="twitter:url" content="https://constellation-overwatch.github.io/">
+    <meta property="twitter:title" content="Constellation Overwatch - Open Source C4ISR Data Fabric">
+    <meta property="twitter:description" content="Edge C4ISR Server Mesh Fabric for hybrid drone/robotic pub/sub communication, sensor streaming, and fleet management.">
+    <meta property="twitter:image" content="https://constellation-overwatch.github.io/public/overwatch.svg">
+    
+    <!-- Additional Meta Tags -->
+    <meta name="theme-color" content="#00ff88">
+    <meta name="msapplication-TileColor" content="#1a1a2e">
+    <meta name="application-name" content="Constellation Overwatch">
+    
+    <!-- Geo Tags -->
+    <meta name="geo.region" content="US">
+    <meta name="geo.placename" content="United States">
+    <meta name="ICBM" content="39.8283, -98.5795">
+    <meta name="DC.title" content="Constellation Overwatch - Open Source C4ISR Data Fabric">
     <style>
         * {
             margin: 0;
@@ -47,6 +85,14 @@
             margin-bottom: 40px;
             border: 2px solid rgba(0, 255, 255, 0.3);
             box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
+        }
+
+        .header-logo {
+            width: 80px;
+            height: 80px;
+            margin: 0 auto 20px;
+            display: block;
+            filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.5));
         }
 
         h1 {
@@ -96,6 +142,16 @@
             font-size: 0.95em;
             transition: all 0.3s ease;
             text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .tech-badge img {
+            width: 24px;
+            height: 24px;
         }
 
         .tech-badge:hover {
@@ -476,7 +532,8 @@
     
     <div class="container">
         <header>
-            <h1>⭐ CONSTELLATION OVERWATCH ⭐</h1>
+            <img src="public/overwatch.svg" alt="Constellation Overwatch" class="header-logo">
+            <h1>CONSTELLATION OVERWATCH</h1>
             <p class="subtitle">Open Source C4ISR Data Fabric</p>
             <p class="description">
                 Edge C4ISR (Command, Control, Communications, Computers, Intelligence, Surveillance, and Reconnaissance) 
@@ -484,14 +541,44 @@
                 and video stream management.
             </p>
             
+            <div style="margin-top: 20px;">
+                <a href="https://github.com/Constellation-Overwatch/constellation-overwatch" target="_blank" 
+                   style="display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 40, 80, 0.6); 
+                          padding: 12px 20px; border-radius: 8px; border: 1px solid rgba(0, 255, 255, 0.3); 
+                          color: #00ffff; text-decoration: none; font-weight: 600; transition: all 0.3s ease;
+                          box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);"
+                   onmouseover="this.style.borderColor='#00ffff'; this.style.boxShadow='0 0 20px rgba(0, 255, 255, 0.4)'; this.style.transform='translateY(-2px)';"
+                   onmouseout="this.style.borderColor='rgba(0, 255, 255, 0.3)'; this.style.boxShadow='0 0 10px rgba(0, 255, 255, 0.2)'; this.style.transform='translateY(0)';">
+                    <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                    View on GitHub
+                </a>
+            </div>
+            
             <div class="tech-stack">
                 <div class="tech-label">Powered By</div>
                 <div style="display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; width: 100%;">
-                    <div class="tech-badge">🚀 Golang</div>
-                    <div class="tech-badge">📡 NATS</div>
-                    <div class="tech-badge">⚡ Templ</div>
-                    <div class="tech-badge">✨ Datastar</div>
-                    <div class="tech-badge">🗄️ Turso</div>
+                    <a href="https://golang.org" target="_blank" class="tech-badge">
+                        <img src="public/go-logo.svg" alt="Go">
+                        Golang
+                    </a>
+                    <a href="https://nats.io" target="_blank" class="tech-badge">
+                        <img src="public/nats.avif" alt="NATS">
+                        NATS
+                    </a>
+                    <a href="https://templ.guide" target="_blank" class="tech-badge">
+                        <img src="public/templ.svg" alt="Templ">
+                        Templ
+                    </a>
+                    <a href="https://data-star.dev" target="_blank" class="tech-badge">
+                        <img src="public/data-star.webp" alt="Datastar">
+                        Datastar
+                    </a>
+                    <a href="https://turso.tech" target="_blank" class="tech-badge">
+                        <img src="public/turso.svg" alt="Turso">
+                        Turso
+                    </a>
                 </div>
             </div>
         </header>
@@ -521,7 +608,15 @@
                 </div>
                 <div class="feature-card">
                     <h4>⚡ Embedded NATS</h4>
-                    <p>Self-contained messaging with no external dependencies</p>
+                    <p>Self-contained messaging with rapid global super-clustering capabilities</p>
+                </div>
+                <div class="feature-card">
+                    <h4>🔒 Offline First Design</h4>
+                    <p>Full security perimeter isolation, network-agnostic operation for data residency and air-gapped environments</p>
+                </div>
+                <div class="feature-card">
+                    <h4>📍 Edge First Architecture</h4>
+                    <p>Portable deployment, proximity-based processing to minimize latency and maximize data locality for field operations</p>
                 </div>
             </div>
         </section>
@@ -590,9 +685,32 @@ go run ./cmd/microlith/main.go</code></pre>
 
             <div class="step">
                 <h3><span class="step-number">4</span>Create Your Organization</h3>
-                <div class="command-box">
-                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
-                    <pre><code>export TOKEN="constellation-dev-token"
+                
+                <div class="os-selector">
+                    <div class="os-tab active" onclick="selectOrgMethod('webui')">🌐 Web UI</div>
+                    <div class="os-tab" onclick="selectOrgMethod('api')">⚡ API</div>
+                </div>
+                
+                <div class="os-command active" id="org-webui">
+                    <p style="color: #aaa; margin-bottom: 15px;">
+                        <strong>Recommended:</strong> Use the web interface for easy setup
+                    </p>
+                    <div class="command-box" style="background: rgba(0, 40, 80, 0.4); border-left: 4px solid #00ffff;">
+                        <pre><code>1. Navigate to: http://localhost:8080/organizations
+2. Click "Create Organization"
+3. Fill form: Name, Type (civilian/military/commercial), Description
+4. Navigate to: http://localhost:8080/fleet
+5. Register entities to your organization</code></pre>
+                    </div>
+                </div>
+                
+                <div class="os-command" id="org-api">
+                    <p style="color: #aaa; margin-bottom: 15px;">
+                        For programmatic integration
+                    </p>
+                    <div class="command-box">
+                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                        <pre><code>export TOKEN="constellation-dev-token"
 
 curl -X POST http://localhost:8080/api/v1/organizations \
   -H "Authorization: Bearer $TOKEN" \
@@ -602,18 +720,27 @@ curl -X POST http://localhost:8080/api/v1/organizations \
     "org_type": "civilian",
     "description": "My drone fleet"
   }'</code></pre>
+                    </div>
+                    <p style="margin-top: 15px; color: #aaa;">
+                        Save the <span class="highlight">org_id</span> from the response!
+                    </p>
                 </div>
-                <p style="margin-top: 15px; color: #aaa;">
-                    Save the <span class="highlight">org_id</span> from the response!
-                </p>
             </div>
         </section>
 
         <section id="clients">
             <h2>📡 Publishing Clients to CONSTELLATION_GLOBAL_STATE</h2>
             
+            <div style="background: rgba(255, 140, 0, 0.1); border: 2px solid rgba(255, 140, 0, 0.4); border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+                <h4 style="color: #ff8c00; margin-bottom: 10px;">⚠️ Ontological Data Design</h4>
+                <p style="color: #aaa; font-size: 0.95em; line-height: 1.4;">
+                    Constellation uses <strong>ontological data primitives</strong>. Structure all telemetry as signal trees under your <code>entity_id</code> namespace. 
+                    Each signal should represent a discrete semantic concept (e.g., <code>position.lat</code>, <code>sensors.temperature</code>, <code>state.battery</code>).
+                </p>
+            </div>
+            
             <p style="color: #aaa; margin-bottom: 30px; font-size: 1.1em;">
-                Once your C4ISR server is running, clients can publish data to the global state using their <span class="highlight">entity_id</span>.
+                Clients publish structured telemetry to the global state using their registered <span class="highlight">entity_id</span> as the signal namespace root.
             </p>
 
             <div class="step">
@@ -659,22 +786,26 @@ constellation.commands.{org_id}.{entity_id}</code></pre>
             </div>
 
             <div class="step">
-                <h3><span class="step-number">3</span>Example: Publish Telemetry</h3>
+                <h3><span class="step-number">3</span>Publish Ontological Telemetry</h3>
                 <p style="color: #aaa; margin-bottom: 15px;">
-                    Find your <span class="highlight">entity_id</span> in the Web UI at <span class="highlight">http://localhost:8080</span>, 
-                    then use it to publish data:
+                    Structure data as semantic signal trees under your <span class="highlight">entity_id</span> namespace:
                 </p>
                 <div class="command-box">
                     <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
                     <pre><code>export ENTITY_ID='your-entity-id-here'
 
-# Connect to NATS and publish
-# Using NATS CLI:
+# Ontological signal structure - each key represents a semantic primitive
 nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
-  '{"lat":37.7749,"lon":-122.4194,"alt":100,"battery":85}'</code></pre>
+  '{
+    "position": {"lat": 37.7749, "lon": -122.4194, "alt": 100},
+    "orientation": {"roll": 0.1, "pitch": -0.2, "yaw": 1.5},
+    "sensors": {"temperature": 22.5, "humidity": 65, "pressure": 1013.25},
+    "state": {"battery": 85, "mode": "autonomous", "armed": true},
+    "performance": {"velocity": 5.2, "thrust": 0.7, "efficiency": 0.92}
+  }'</code></pre>
                 </div>
                 <p style="margin-top: 15px; color: #00ff00; font-weight: bold;">
-                    ✓ Your data is now in CONSTELLATION_GLOBAL_STATE and visible in the Web UI!
+                    ✓ Structured signals now available in global ontology under entity namespace
                 </p>
             </div>
         </section>
@@ -708,7 +839,10 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
 
             <p style="margin-top: 30px; text-align: center; color: #aaa; font-size: 1.1em;">
                 Stay tuned! Follow the repository for updates: 
-                <a href="https://github.com/Constellation-Overwatch/constellation-overwatch" target="_blank">
+                <a href="https://github.com/Constellation-Overwatch/constellation-overwatch" target="_blank" style="display: inline-flex; align-items: center; gap: 5px;">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
                     github.com/Constellation-Overwatch
                 </a>
             </p>
@@ -718,7 +852,12 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
             <h2>📚 Resources</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <h4>📖 GitHub Repository</h4>
+                    <h4 style="display: flex; align-items: center; gap: 8px;">
+                        <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
+                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                        </svg>
+                        GitHub Repository
+                    </h4>
                     <p><a href="https://github.com/Constellation-Overwatch/constellation-overwatch" target="_blank">
                         View source code, docs, and examples
                     </a></p>
@@ -739,7 +878,12 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
         <footer>
             <p>Built with 💙 for the open source community</p>
             <p style="margin-top: 10px;">
-                <a href="https://github.com/Constellation-Overwatch" target="_blank">GitHub Organization</a>
+                <a href="https://github.com/Constellation-Overwatch" target="_blank" style="display: inline-flex; align-items: center; gap: 5px;">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                    </svg>
+                    GitHub Organization
+                </a>
             </p>
         </footer>
     </div>
@@ -900,6 +1044,21 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
             // Add active class to selected tab and command
             event.target.classList.add('active');
             document.getElementById('cmd-' + os).classList.add('active');
+        }
+
+        // Organization method selector
+        function selectOrgMethod(method) {
+            // Remove active class from all tabs and commands
+            document.querySelectorAll('.os-tab').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            document.querySelectorAll('.os-command').forEach(cmd => {
+                cmd.classList.remove('active');
+            });
+            
+            // Add active class to selected tab and command
+            event.target.classList.add('active');
+            document.getElementById('org-' + method).classList.add('active');
         }
     </script>
 </body>

@@ -1,0 +1,72 @@
+# Constellation Overwatch - AI/LLM Integration Guide
+
+## Overview
+Constellation Overwatch is an open-source C4ISR (Command, Control, Communications, Computers, Intelligence, Surveillance, and Reconnaissance) data fabric designed for edge drone/robotic communication, sensor streaming, and fleet management.
+
+## Quick Start for AI Development
+
+### Repository
+- Main Repo: https://github.com/Constellation-Overwatch/constellation-overwatch
+- Website: https://constellation-overwatch.github.io/
+
+### Tech Stack
+- Backend: Go (Golang)
+- Messaging: NATS JetStream
+- Frontend: Templ + Datastar
+- Database: Turso (SQLite)
+- Real-time: Server-Sent Events
+
+### Key APIs for Integration
+
+#### Entity Registration
+```bash
+curl -X POST "http://localhost:8080/api/v1/entities?org_id={org_id}" \
+  -H "Authorization: Bearer constellation-dev-token" \
+  -H "Content-Type: application/json" \
+  -d '{
+    "name": "AI-Agent-001",
+    "entity_type": "ai_system",
+    "description": "AI processing agent",
+    "metadata": {"model": "gpt-4", "version": "1.0"}
+  }'
+```
+
+#### NATS Pub/Sub Topics
+- Telemetry: `constellation.telemetry.{org_id}.{entity_id}`
+- Status: `constellation.entities.{org_id}.status`
+- Commands: `constellation.commands.{org_id}.{entity_id}`
+
+### AI/ML Use Cases
+1. **Autonomous Agent Integration**: Connect AI agents as entities for fleet coordination
+2. **Computer Vision Pipeline**: Stream video/image analysis results
+3. **Predictive Analytics**: Publish telemetry predictions and anomaly detection
+4. **Natural Language Command**: Parse and execute voice/text commands to fleet
+5. **Swarm Intelligence**: Coordinate multi-agent behaviors through pub/sub
+
+### Development Setup
+```bash
+git clone https://github.com/Constellation-Overwatch/constellation-overwatch.git
+cd constellation-overwatch
+task dev  # Starts server on localhost:8080
+```
+
+### NATS Connection
+- Server: nats://localhost:4222
+- No auth required for local development
+- Production: Bearer token authentication
+
+### Common Integration Patterns
+- **Event-Driven**: React to telemetry streams for real-time AI processing
+- **Command Injection**: Send AI-generated commands to entities
+- **State Synchronization**: Maintain global state awareness for decision making
+- **Multi-Modal Fusion**: Combine sensor streams for enhanced AI understanding
+
+### Support
+- Issues: https://github.com/Constellation-Overwatch/constellation-overwatch/issues
+- Docs: Available in repository
+- License: Open Source (check repository for specific license)
+
+### Security Notes
+- Development token: "constellation-dev-token"
+- Production: Use proper authentication
+- All communications over secure channels in production
