@@ -1,43 +1,48 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, user-scalable=yes">
-    
+
     <!-- Primary Meta Tags -->
     <title>Constellation Overwatch - Open Source C4ISR Data Fabric</title>
     <meta name="title" content="Constellation Overwatch - Open Source C4ISR Data Fabric">
-    <meta name="description" content="Edge C4ISR Server Mesh Fabric for hybrid drone/robotic pub/sub communication, sensor streaming, and fleet management. Built with Go, NATS, and modern web technologies.">
-    <meta name="keywords" content="C4ISR, drone communication, robotic mesh, NATS, golang, edge computing, telemetry streaming, pub/sub, constellation, overwatch, open source, surveillance, reconnaissance">
+    <meta name="description"
+        content="Edge C4ISR Server Mesh Fabric for hybrid drone/robotic pub/sub communication, sensor streaming, and fleet management. Built with Go, NATS, and modern web technologies.">
+    <meta name="keywords"
+        content="C4ISR, drone communication, robotic mesh, NATS, golang, edge computing, telemetry streaming, pub/sub, constellation, overwatch, open source, surveillance, reconnaissance">
     <meta name="author" content="Constellation Overwatch">
     <meta name="robots" content="index, follow">
     <link rel="canonical" href="https://constellation-overwatch.github.io/">
-    
+
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="public/overwatch.svg">
     <link rel="icon" type="image/png" href="public/overwatch.svg">
     <link rel="apple-touch-icon" href="public/overwatch.svg">
-    
+
     <!-- Open Graph / Facebook -->
     <meta property="og:type" content="website">
     <meta property="og:url" content="https://constellation-overwatch.github.io/">
     <meta property="og:title" content="Constellation Overwatch - Open Source C4ISR Data Fabric">
-    <meta property="og:description" content="Edge C4ISR Server Mesh Fabric for hybrid drone/robotic pub/sub communication, sensor streaming, and fleet management.">
+    <meta property="og:description"
+        content="Edge C4ISR Server Mesh Fabric for hybrid drone/robotic pub/sub communication, sensor streaming, and fleet management.">
     <meta property="og:image" content="https://constellation-overwatch.github.io/public/overwatch.svg">
     <meta property="og:site_name" content="Constellation Overwatch">
-    
+
     <!-- Twitter -->
     <meta property="twitter:card" content="summary_large_image">
     <meta property="twitter:url" content="https://constellation-overwatch.github.io/">
     <meta property="twitter:title" content="Constellation Overwatch - Open Source C4ISR Data Fabric">
-    <meta property="twitter:description" content="Edge C4ISR Server Mesh Fabric for hybrid drone/robotic pub/sub communication, sensor streaming, and fleet management.">
+    <meta property="twitter:description"
+        content="Edge C4ISR Server Mesh Fabric for hybrid drone/robotic pub/sub communication, sensor streaming, and fleet management.">
     <meta property="twitter:image" content="https://constellation-overwatch.github.io/public/overwatch.svg">
-    
+
     <!-- Additional Meta Tags -->
     <meta name="theme-color" content="#00ff88">
     <meta name="msapplication-TileColor" content="#1a1a2e">
     <meta name="application-name" content="Constellation Overwatch">
-    
+
     <!-- Geo Tags -->
     <meta name="geo.region" content="US">
     <meta name="geo.placename" content="United States">
@@ -412,39 +417,39 @@
                 font-size: 2em;
                 letter-spacing: 1px;
             }
-            
+
             .subtitle {
                 font-size: 1.1em;
             }
-            
+
             .description {
                 font-size: 1em;
                 padding: 0 10px;
             }
-            
+
             section {
                 padding: 20px;
                 margin-bottom: 20px;
             }
-            
+
             h2 {
                 font-size: 1.8em;
             }
-            
+
             h3 {
                 font-size: 1.3em;
             }
-            
+
             .feature-grid {
                 grid-template-columns: 1fr;
                 gap: 15px;
             }
-            
+
             .step {
                 padding-left: 10px;
                 border-left-width: 2px;
             }
-            
+
             .step-number {
                 width: 30px;
                 height: 30px;
@@ -452,74 +457,74 @@
                 font-size: 0.9em;
                 margin-right: 10px;
             }
-            
+
             .command-box {
                 padding: 15px;
                 font-size: 0.85em;
                 margin: 15px 0;
             }
-            
+
             .copy-btn {
                 padding: 5px 10px;
                 font-size: 0.8em;
                 top: 8px;
                 right: 8px;
             }
-            
+
             .tech-stack {
                 gap: 15px;
             }
-            
+
             .tech-badge {
                 padding: 10px 15px;
                 font-size: 0.9em;
                 flex: 0 1 auto;
             }
-            
+
             .os-tab {
                 font-size: 0.9em;
                 padding: 8px 15px;
                 min-width: 80px;
             }
-            
+
             header {
                 padding: 40px 15px 30px;
             }
-            
+
             .container {
                 padding: 15px;
             }
         }
-        
+
         @media (max-width: 480px) {
             h1 {
                 font-size: 1.6em;
             }
-            
+
             .subtitle {
                 font-size: 1em;
             }
-            
+
             h2 {
                 font-size: 1.5em;
             }
-            
+
             .feature-card {
                 padding: 20px;
             }
-            
+
             .command-box {
                 font-size: 0.75em;
                 padding: 12px;
             }
-            
+
             .step-number {
                 width: 28px;
                 height: 28px;
                 line-height: 28px;
                 font-size: 0.85em;
             }
-            
+
             .tech-badge {
                 font-size: 0.85em;
                 padding: 8px 12px;
@@ -527,35 +532,35 @@
         }
     </style>
 </head>
+
 <body>
     <canvas id="starfield"></canvas>
-    
+
     <div class="container">
         <header>
             <img src="public/overwatch.svg" alt="Constellation Overwatch" class="header-logo">
             <h1>CONSTELLATION OVERWATCH</h1>
-            <p class="subtitle">Open Source C4ISR Data Fabric</p>
+            <p class="subtitle">Open Source C4ISR</p>
             <p class="description">
-                Edge C4ISR (Command, Control, Communications, Computers, Intelligence, Surveillance, and Reconnaissance) 
-                Server Mesh Fabric designed for hybrid drone/robotic pub/sub communication, sensor data streaming, 
+                Data Network Fabric designed for hybrid drone/robotic pub/sub communication, sensor data streaming,
                 and video stream management.
             </p>
-            
+
             <div style="margin-top: 20px;">
-                <a href="https://github.com/Constellation-Overwatch/constellation-overwatch" target="_blank" 
-                   style="display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 40, 80, 0.6); 
+                <a href="https://github.com/Constellation-Overwatch/constellation-overwatch" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 40, 80, 0.6); 
                           padding: 12px 20px; border-radius: 8px; border: 1px solid rgba(0, 255, 255, 0.3); 
                           color: #00ffff; text-decoration: none; font-weight: 600; transition: all 0.3s ease;
                           box-shadow: 0 0 10px rgba(0, 255, 255, 0.2);"
-                   onmouseover="this.style.borderColor='#00ffff'; this.style.boxShadow='0 0 20px rgba(0, 255, 255, 0.4)'; this.style.transform='translateY(-2px)';"
-                   onmouseout="this.style.borderColor='rgba(0, 255, 255, 0.3)'; this.style.boxShadow='0 0 10px rgba(0, 255, 255, 0.2)'; this.style.transform='translateY(0)';">
+                    onmouseover="this.style.borderColor='#00ffff'; this.style.boxShadow='0 0 20px rgba(0, 255, 255, 0.4)'; this.style.transform='translateY(-2px)';"
+                    onmouseout="this.style.borderColor='rgba(0, 255, 255, 0.3)'; this.style.boxShadow='0 0 10px rgba(0, 255, 255, 0.2)'; this.style.transform='translateY(0)';">
                     <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                        <path
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
                     </svg>
                     View on GitHub
                 </a>
             </div>
-            
+
             <div class="tech-stack">
                 <div class="tech-label">Powered By</div>
                 <div style="display: flex; gap: 25px; flex-wrap: wrap; justify-content: center; width: 100%;">
@@ -612,18 +617,20 @@
                 </div>
                 <div class="feature-card">
                     <h4>🔒 Offline First Design</h4>
-                    <p>Full security perimeter isolation, network-agnostic operation for data residency and air-gapped environments</p>
+                    <p>Full security perimeter isolation, network-agnostic operation for data residency and air-gapped
+                        environments</p>
                 </div>
                 <div class="feature-card">
                     <h4>📍 Edge First Architecture</h4>
-                    <p>Portable deployment, proximity-based processing to minimize latency and maximize data locality for field operations</p>
+                    <p>Portable deployment, proximity-based processing to minimize latency and maximize data locality
+                        for field operations</p>
                 </div>
             </div>
         </section>
 
         <section id="quickstart">
             <h2>🚀 Quick Start</h2>
-            
+
             <div class="step">
                 <h3><span class="step-number">1</span>Clone the Repository</h3>
                 <div class="command-box">
@@ -635,27 +642,27 @@ cd constellation-overwatch</code></pre>
 
             <div class="step">
                 <h3><span class="step-number">2</span>Install Task Runner</h3>
-                
+
                 <div class="os-selector">
                     <div class="os-tab active" onclick="selectOS('macos')">🍎 macOS</div>
                     <div class="os-tab" onclick="selectOS('linux')">🐧 Linux</div>
                     <div class="os-tab" onclick="selectOS('windows')">🪟 Windows</div>
                 </div>
-                
+
                 <div class="os-command active" id="cmd-macos">
                     <div class="command-box">
                         <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
                         <pre><code>brew install go-task/tap/go-task</code></pre>
                     </div>
                 </div>
-                
+
                 <div class="os-command" id="cmd-linux">
                     <div class="command-box">
                         <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
                         <pre><code>sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin</code></pre>
                     </div>
                 </div>
-                
+
                 <div class="os-command" id="cmd-windows">
                     <div class="command-box">
                         <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
@@ -685,12 +692,12 @@ go run ./cmd/microlith/main.go</code></pre>
 
             <div class="step">
                 <h3><span class="step-number">4</span>Create Your Organization</h3>
-                
+
                 <div class="os-selector">
                     <div class="os-tab active" onclick="selectOrgMethod('webui')">🌐 Web UI</div>
                     <div class="os-tab" onclick="selectOrgMethod('api')">⚡ API</div>
                 </div>
-                
+
                 <div class="os-command active" id="org-webui">
                     <p style="color: #aaa; margin-bottom: 15px;">
                         <strong>Recommended:</strong> Use the web interface for easy setup
@@ -703,7 +710,7 @@ go run ./cmd/microlith/main.go</code></pre>
 5. Register entities to your organization</code></pre>
                     </div>
                 </div>
-                
+
                 <div class="os-command" id="org-api">
                     <p style="color: #aaa; margin-bottom: 15px;">
                         For programmatic integration
@@ -730,17 +737,21 @@ curl -X POST http://localhost:8080/api/v1/organizations \
 
         <section id="clients">
             <h2>📡 Publishing Clients to CONSTELLATION_GLOBAL_STATE</h2>
-            
-            <div style="background: rgba(255, 140, 0, 0.1); border: 2px solid rgba(255, 140, 0, 0.4); border-radius: 8px; padding: 20px; margin-bottom: 30px;">
+
+            <div
+                style="background: rgba(255, 140, 0, 0.1); border: 2px solid rgba(255, 140, 0, 0.4); border-radius: 8px; padding: 20px; margin-bottom: 30px;">
                 <h4 style="color: #ff8c00; margin-bottom: 10px;">⚠️ Ontological Data Design</h4>
                 <p style="color: #aaa; font-size: 0.95em; line-height: 1.4;">
-                    Constellation uses <strong>ontological data primitives</strong>. Structure all telemetry as signal trees under your <code>entity_id</code> namespace. 
-                    Each signal should represent a discrete semantic concept (e.g., <code>position.lat</code>, <code>sensors.temperature</code>, <code>state.battery</code>).
+                    Constellation uses <strong>ontological data primitives</strong>. Structure all telemetry as signal
+                    trees under your <code>entity_id</code> namespace.
+                    Each signal should represent a discrete semantic concept (e.g., <code>position.lat</code>,
+                    <code>sensors.temperature</code>, <code>state.battery</code>).
                 </p>
             </div>
-            
+
             <p style="color: #aaa; margin-bottom: 30px; font-size: 1.1em;">
-                Clients publish structured telemetry to the global state using their registered <span class="highlight">entity_id</span> as the signal namespace root.
+                Clients publish structured telemetry to the global state using their registered <span
+                    class="highlight">entity_id</span> as the signal namespace root.
             </p>
 
             <div class="step">
@@ -763,7 +774,8 @@ curl -X POST "http://localhost:8080/api/v1/entities?org_id=$ORG_ID" \
   }'</code></pre>
                 </div>
                 <p style="margin-top: 15px; color: #aaa;">
-                    Extract the <span class="highlight">entity_id</span> from the response - this is your unique identifier!
+                    Extract the <span class="highlight">entity_id</span> from the response - this is your unique
+                    identifier!
                 </p>
             </div>
 
@@ -788,7 +800,8 @@ constellation.commands.{org_id}.{entity_id}</code></pre>
             <div class="step">
                 <h3><span class="step-number">3</span>Publish Ontological Telemetry</h3>
                 <p style="color: #aaa; margin-bottom: 15px;">
-                    Structure data as semantic signal trees under your <span class="highlight">entity_id</span> namespace:
+                    Structure data as semantic signal trees under your <span class="highlight">entity_id</span>
+                    namespace:
                 </p>
                 <div class="command-box">
                     <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
@@ -812,36 +825,39 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
 
         <section id="coming-soon" class="coming-soon">
             <h2>🔮 Coming Soon <span class="badge">IN DEVELOPMENT</span></h2>
-            
+
             <div class="feature-grid">
                 <div class="feature-card coming-soon">
                     <h4>🛩️ mavlink2constellation</h4>
                     <p>
-                        Bridge MAVLink telemetry from drones and autonomous vehicles directly to the Constellation mesh. 
+                        Bridge MAVLink telemetry from drones and autonomous vehicles directly to the Constellation mesh.
                         Automatic entity registration and real-time telemetry streaming from ArduPilot/PX4 systems.
                     </p>
                     <p style="margin-top: 15px; color: #ff8c00; font-size: 0.9em;">
                         <strong>Features:</strong> Auto-discovery, heartbeat monitoring, mission planning integration
                     </p>
                 </div>
-                
+
                 <div class="feature-card coming-soon">
                     <h4>👁️ visionagent2constellation</h4>
                     <p>
-                        Connect computer vision agents and AI models to the Constellation fabric. 
+                        Connect computer vision agents and AI models to the Constellation fabric.
                         Stream object detection results, tracking data, and visual analytics from edge AI devices.
                     </p>
                     <p style="margin-top: 15px; color: #ff8c00; font-size: 0.9em;">
-                        <strong>Features:</strong> Multi-model support, inference result streaming, video feed integration
+                        <strong>Features:</strong> Multi-model support, inference result streaming, video feed
+                        integration
                     </p>
                 </div>
             </div>
 
             <p style="margin-top: 30px; text-align: center; color: #aaa; font-size: 1.1em;">
-                Stay tuned! Follow the repository for updates: 
-                <a href="https://github.com/Constellation-Overwatch/constellation-overwatch" target="_blank" style="display: inline-flex; align-items: center; gap: 5px;">
+                Stay tuned! Follow the repository for updates:
+                <a href="https://github.com/Constellation-Overwatch/constellation-overwatch" target="_blank"
+                    style="display: inline-flex; align-items: center; gap: 5px;">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                        <path
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
                     </svg>
                     github.com/Constellation-Overwatch
                 </a>
@@ -854,19 +870,20 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
                 <div class="feature-card">
                     <h4 style="display: flex; align-items: center; gap: 8px;">
                         <svg width="20" height="20" viewBox="0 0 16 16" fill="currentColor">
-                            <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                            <path
+                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
                         </svg>
                         GitHub Repository
                     </h4>
                     <p><a href="https://github.com/Constellation-Overwatch/constellation-overwatch" target="_blank">
-                        View source code, docs, and examples
-                    </a></p>
+                            View source code, docs, and examples
+                        </a></p>
                 </div>
                 <div class="feature-card">
                     <h4>🌐 Web Dashboard</h4>
                     <p><a href="http://localhost:8080" target="_blank">
-                        http://localhost:8080
-                    </a> (after starting server)</p>
+                            http://localhost:8080
+                        </a> (after starting server)</p>
                 </div>
                 <div class="feature-card">
                     <h4>📡 NATS Server</h4>
@@ -878,9 +895,11 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
         <footer>
             <p>Built with 💙 for the open source community</p>
             <p style="margin-top: 10px;">
-                <a href="https://github.com/Constellation-Overwatch" target="_blank" style="display: inline-flex; align-items: center; gap: 5px;">
+                <a href="https://github.com/Constellation-Overwatch" target="_blank"
+                    style="display: inline-flex; align-items: center; gap: 5px;">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                        <path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/>
+                        <path
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
                     </svg>
                     GitHub Organization
                 </a>
@@ -892,20 +911,20 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
     <script>
         // Detect mobile device
         const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        
+
         // Star Wars style starfield animation
         const canvas = document.getElementById('starfield');
         const scene = new THREE.Scene();
         const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
         const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: !isMobile });
-        
+
         renderer.setSize(window.innerWidth, window.innerHeight);
         renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1.5 : 2));
-        
+
         // Create stars (fewer on mobile for performance)
         const starCount = isMobile ? 1500 : 3000;
         const nebulaCount = isMobile ? 250 : 500;
-        
+
         const starsGeometry = new THREE.BufferGeometry();
         const starsMaterial = new THREE.PointsMaterial({
             color: 0xffffff,
@@ -913,7 +932,7 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
             transparent: true,
             opacity: 0.8
         });
-        
+
         const starsVertices = [];
         for (let i = 0; i < starCount; i++) {
             const x = (Math.random() - 0.5) * 2000;
@@ -921,11 +940,11 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
             const z = -Math.random() * 2000;
             starsVertices.push(x, y, z);
         }
-        
+
         starsGeometry.setAttribute('position', new THREE.Float32BufferAttribute(starsVertices, 3));
         const stars = new THREE.Points(starsGeometry, starsMaterial);
         scene.add(stars);
-        
+
         // Create colored nebula stars (cyan/blue theme)
         const nebulaGeometry = new THREE.BufferGeometry();
         const nebulaMaterial = new THREE.PointsMaterial({
@@ -935,7 +954,7 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
             opacity: 0.6,
             blending: THREE.AdditiveBlending
         });
-        
+
         const nebulaVertices = [];
         for (let i = 0; i < nebulaCount; i++) {
             const x = (Math.random() - 0.5) * 2000;
@@ -943,63 +962,63 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
             const z = -Math.random() * 1500;
             nebulaVertices.push(x, y, z);
         }
-        
+
         nebulaGeometry.setAttribute('position', new THREE.Float32BufferAttribute(nebulaVertices, 3));
         const nebula = new THREE.Points(nebulaGeometry, nebulaMaterial);
         scene.add(nebula);
-        
+
         camera.position.z = 1;
-        
+
         // Animation with performance optimization
         let lastTime = Date.now();
         const targetFPS = isMobile ? 30 : 60;
         const frameInterval = 1000 / targetFPS;
-        
+
         function animate() {
             requestAnimationFrame(animate);
-            
+
             const currentTime = Date.now();
             const deltaTime = currentTime - lastTime;
-            
+
             // Throttle animation on mobile
             if (deltaTime < frameInterval) return;
             lastTime = currentTime - (deltaTime % frameInterval);
-            
+
             // Move stars toward camera (hyperspace effect)
             const positions = starsGeometry.attributes.position.array;
             const speed = isMobile ? 1.5 : 2;
             for (let i = 0; i < positions.length; i += 3) {
                 positions[i + 2] += speed;
-                
+
                 // Reset star position when it passes the camera
                 if (positions[i + 2] > 200) {
                     positions[i + 2] = -2000;
                 }
             }
             starsGeometry.attributes.position.needsUpdate = true;
-            
+
             // Move nebula stars slower
             const nebulaPositions = nebulaGeometry.attributes.position.array;
             const nebulaSpeed = isMobile ? 0.75 : 1;
             for (let i = 0; i < nebulaPositions.length; i += 3) {
                 nebulaPositions[i + 2] += nebulaSpeed;
-                
+
                 if (nebulaPositions[i + 2] > 200) {
                     nebulaPositions[i + 2] = -1500;
                 }
             }
             nebulaGeometry.attributes.position.needsUpdate = true;
-            
+
             // Gentle rotation (slower on mobile)
             const rotationSpeed = isMobile ? 0.0001 : 0.0002;
             stars.rotation.y += rotationSpeed;
             nebula.rotation.y -= rotationSpeed * 0.5;
-            
+
             renderer.render(scene, camera);
         }
-        
+
         animate();
-        
+
         // Handle window resize
         window.addEventListener('resize', () => {
             camera.aspect = window.innerWidth / window.innerHeight;
@@ -1011,12 +1030,12 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
         function copyToClipboard(button) {
             const codeBlock = button.parentElement.querySelector('code');
             const text = codeBlock.textContent;
-            
+
             navigator.clipboard.writeText(text).then(() => {
                 // Visual feedback
                 button.classList.add('copied');
                 button.textContent = 'Copied';
-                
+
                 // Reset after 2 seconds
                 setTimeout(() => {
                     button.classList.remove('copied');
@@ -1040,7 +1059,7 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
             document.querySelectorAll('.os-command').forEach(cmd => {
                 cmd.classList.remove('active');
             });
-            
+
             // Add active class to selected tab and command
             event.target.classList.add('active');
             document.getElementById('cmd-' + os).classList.add('active');
@@ -1055,11 +1074,12 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
             document.querySelectorAll('.os-command').forEach(cmd => {
                 cmd.classList.remove('active');
             });
-            
+
             // Add active class to selected tab and command
             event.target.classList.add('active');
             document.getElementById('org-' + method).classList.add('active');
         }
     </script>
 </body>
+
 </html>
