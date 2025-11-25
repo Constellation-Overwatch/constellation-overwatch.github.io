@@ -781,35 +781,35 @@ curl -X POST "http://localhost:8080/api/v1/entities?org_id=$ORG_ID" \
             </div>
 
             <div class="step">
-                <h3><span class="step-number">2</span>Publish to Global State via NATS</h3>
+                <h3><span class="step-number">2</span>Publish to Global State via NATS KV</h3>
                 <p style="color: #aaa; margin-bottom: 15px;">
-                    Your client can now publish telemetry, status updates, and events using the NATS subjects:
+                    Your client publishes telemetry to the <strong>CONSTELLATION_GLOBAL_STATE</strong> KV bucket using your <span class="highlight">entity_id</span> as the key:
                 </p>
                 <div class="command-box">
                     <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
-                    <pre><code># Telemetry stream for your entity
-constellation.telemetry.{org_id}.{entity_id}
+                    <pre><code># KV bucket for global state
+CONSTELLATION_GLOBAL_STATE
 
-# Status updates
-constellation.entities.{org_id}.status
+# Key format: your entity_id
+# Value: ontological telemetry data
 
-# Commands (receiving)
+# Commands can still use subjects for real-time messaging:
 constellation.commands.{org_id}.{entity_id}</code></pre>
                 </div>
             </div>
 
             <div class="step">
-                <h3><span class="step-number">3</span>Publish Ontological Telemetry</h3>
+                <h3><span class="step-number">3</span>Publish Ontological Telemetry to KV</h3>
                 <p style="color: #aaa; margin-bottom: 15px;">
-                    Structure data as semantic signal trees under your <span class="highlight">entity_id</span>
-                    namespace:
+                    Publish structured data to the KV store using your <span class="highlight">entity_id</span> as the key:
                 </p>
                 <div class="command-box">
                     <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
                     <pre><code>export ENTITY_ID='your-entity-id-here'
 
-# Ontological signal structure - each key represents a semantic primitive
-nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
+# Publish ontological telemetry to CONSTELLATION_GLOBAL_STATE KV bucket
+# Key: entity_id, Value: ontological signal structure
+nats kv put CONSTELLATION_GLOBAL_STATE "$ENTITY_ID" \
   '{
     "position": {"lat": 37.7749, "lon": -122.4194, "alt": 100},
     "orientation": {"roll": 0.1, "pitch": -0.2, "yaw": 1.5},
@@ -819,7 +819,7 @@ nats pub "constellation.telemetry.$ORG_ID.$ENTITY_ID" \
   }'</code></pre>
                 </div>
                 <p style="margin-top: 15px; color: #00ff00; font-weight: bold;">
-                    ✓ Structured signals now available in global ontology under entity namespace
+                    ✓ Entity state now stored in CONSTELLATION_GLOBAL_STATE KV with entity_id as key
                 </p>
             </div>
         </section>
