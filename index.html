@@ -48,516 +48,9 @@
     <meta name="geo.placename" content="United States">
     <meta name="ICBM" content="39.8283, -98.5795">
     <meta name="DC.title" content="Constellation Overwatch - Open Source C4ISR Data Fabric">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
 
-        body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: #000;
-            color: #fff;
-            overflow-x: hidden;
-            scroll-behavior: smooth;
-            -webkit-font-smoothing: antialiased;
-            -moz-osx-font-smoothing: grayscale;
-        }
-
-        #starfield {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 20px;
-            position: relative;
-            z-index: 1;
-        }
-
-        header {
-            text-align: center;
-            padding: 60px 20px 40px;
-            background: rgba(0, 0, 0, 0.7);
-            border-radius: 10px;
-            margin-bottom: 40px;
-            border: 2px solid rgba(0, 255, 255, 0.3);
-            box-shadow: 0 0 30px rgba(0, 255, 255, 0.2);
-        }
-
-        .header-logo {
-            width: 80px;
-            height: 80px;
-            margin: 0 auto 20px;
-            display: block;
-            filter: drop-shadow(0 0 15px rgba(0, 255, 136, 0.5));
-        }
-
-        h1 {
-            font-size: 3.5em;
-            margin-bottom: 20px;
-            background: linear-gradient(45deg, #00ffff, #0099ff);
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            background-clip: text;
-            text-shadow: 0 0 20px rgba(0, 255, 255, 0.5);
-            letter-spacing: 2px;
-        }
-
-        .subtitle {
-            font-size: 1.3em;
-            color: #00ccff;
-            margin-bottom: 20px;
-            text-shadow: 0 0 10px rgba(0, 204, 255, 0.5);
-        }
-
-        .description {
-            font-size: 1.1em;
-            color: #aaa;
-            line-height: 1.6;
-            max-width: 800px;
-            margin: 20px auto 30px;
-        }
-
-        .tech-stack {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 25px;
-            flex-wrap: wrap;
-            margin-top: 30px;
-            padding-top: 30px;
-            border-top: 1px solid rgba(0, 255, 255, 0.2);
-        }
-
-        .tech-badge {
-            background: rgba(0, 40, 80, 0.6);
-            padding: 12px 20px;
-            border-radius: 8px;
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            color: #00ffff;
-            font-weight: 600;
-            font-size: 0.95em;
-            transition: all 0.3s ease;
-            text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
-            display: flex;
-            align-items: center;
-            gap: 8px;
-            text-decoration: none;
-            cursor: pointer;
-        }
-
-        .tech-badge img {
-            width: 24px;
-            height: 24px;
-        }
-
-        .tech-badge:hover {
-            border-color: #00ffff;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.4);
-            transform: translateY(-2px);
-        }
-
-        .tech-label {
-            color: #888;
-            font-size: 0.85em;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-        }
-
-        section {
-            background: rgba(0, 20, 40, 0.8);
-            padding: 40px;
-            margin-bottom: 30px;
-            border-radius: 10px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            backdrop-filter: blur(10px);
-        }
-
-        h2 {
-            color: #00ffff;
-            font-size: 2.2em;
-            margin-bottom: 25px;
-            text-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-            border-bottom: 2px solid rgba(0, 255, 255, 0.3);
-            padding-bottom: 10px;
-        }
-
-        h3 {
-            color: #00ccff;
-            font-size: 1.5em;
-            margin: 25px 0 15px;
-            text-shadow: 0 0 10px rgba(0, 204, 255, 0.3);
-        }
-
-        .command-box {
-            background: rgba(0, 0, 0, 0.6);
-            border: 1px solid #00ffff;
-            border-left: 4px solid #00ffff;
-            padding: 20px;
-            margin: 20px 0;
-            border-radius: 5px;
-            font-family: 'Courier New', monospace;
-            color: #0f0;
-            overflow-x: auto;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.1);
-            position: relative;
-        }
-
-        .command-box pre {
-            margin: 0;
-            white-space: pre-wrap;
-            word-wrap: break-word;
-        }
-
-        .command-box code {
-            color: #0f0;
-            text-shadow: 0 0 5px rgba(0, 255, 0, 0.5);
-        }
-
-        .copy-btn {
-            position: absolute;
-            top: 10px;
-            right: 10px;
-            background: rgba(0, 255, 255, 0.2);
-            border: 1px solid #00ffff;
-            color: #00ffff;
-            padding: 6px 12px;
-            border-radius: 4px;
-            cursor: pointer;
-            font-size: 0.85em;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            transition: all 0.3s ease;
-            z-index: 10;
-            min-height: 32px;
-            min-width: 60px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-        }
-
-        .copy-btn:hover {
-            background: rgba(0, 255, 255, 0.3);
-            box-shadow: 0 0 10px rgba(0, 255, 255, 0.4);
-            transform: translateY(-1px);
-        }
-
-        .copy-btn:active {
-            transform: translateY(0);
-            box-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
-        }
-
-        .copy-btn.copied {
-            background: rgba(0, 255, 0, 0.3);
-            border-color: #0f0;
-            color: #0f0;
-        }
-
-        .copy-btn.copied::after {
-            content: ' ✓';
-        }
-
-        /* Touch-friendly active states */
-        .os-tab:active {
-            transform: scale(0.98);
-        }
-
-        .feature-card:active {
-            transform: translateY(-3px);
-        }
-
-        a:active {
-            opacity: 0.8;
-        }
-
-        .step {
-            margin: 30px 0;
-            padding-left: 20px;
-            border-left: 3px solid #00ffff;
-        }
-
-        .step-number {
-            display: inline-block;
-            width: 35px;
-            height: 35px;
-            background: linear-gradient(135deg, #00ffff, #0099ff);
-            color: #000;
-            border-radius: 50%;
-            text-align: center;
-            line-height: 35px;
-            font-weight: bold;
-            margin-right: 15px;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.5);
-        }
-
-        .feature-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
-            margin: 30px 0;
-        }
-
-        .feature-card {
-            background: rgba(0, 40, 80, 0.5);
-            padding: 25px;
-            border-radius: 8px;
-            border: 1px solid rgba(0, 255, 255, 0.2);
-            transition: all 0.3s ease;
-        }
-
-        .feature-card:hover {
-            border-color: #00ffff;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.3);
-            transform: translateY(-5px);
-        }
-
-        .feature-card h4 {
-            color: #00ffff;
-            margin-bottom: 10px;
-            font-size: 1.2em;
-        }
-
-        .coming-soon {
-            background: linear-gradient(135deg, rgba(255, 140, 0, 0.2), rgba(255, 69, 0, 0.2));
-            border: 2px solid rgba(255, 140, 0, 0.5);
-        }
-
-        .coming-soon h3 {
-            color: #ff8c00;
-            text-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
-        }
-
-        .badge {
-            display: inline-block;
-            background: linear-gradient(135deg, #ff8c00, #ff4500);
-            color: #fff;
-            padding: 5px 15px;
-            border-radius: 20px;
-            font-size: 0.85em;
-            font-weight: bold;
-            margin-left: 10px;
-            box-shadow: 0 0 10px rgba(255, 140, 0, 0.5);
-        }
-
-        .highlight {
-            color: #00ffff;
-            font-weight: bold;
-            text-shadow: 0 0 5px rgba(0, 255, 255, 0.3);
-        }
-
-        a {
-            color: #00ffff;
-            text-decoration: none;
-            border-bottom: 1px solid transparent;
-            transition: all 0.3s ease;
-        }
-
-        a:hover {
-            border-bottom-color: #00ffff;
-            text-shadow: 0 0 10px rgba(0, 255, 255, 0.5);
-        }
-
-        footer {
-            text-align: center;
-            padding: 40px 20px;
-            color: #666;
-            margin-top: 60px;
-        }
-
-        .footer-quote {
-            max-width: 700px;
-            margin: 30px auto 20px;
-            padding: 20px 30px;
-            border-left: 4px solid #00ffff;
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.05) 0%, rgba(0, 136, 255, 0.03) 100%);
-            border-radius: 0 8px 8px 0;
-            text-align: left;
-            font-style: italic;
-            color: #ccc;
-            line-height: 1.6;
-        }
-
-        .footer-quote p {
-            margin: 0 0 10px 0;
-            font-size: 1.05em;
-        }
-
-        .footer-quote cite {
-            display: block;
-            font-style: normal;
-            font-weight: 600;
-            color: #00ffff;
-            font-size: 0.95em;
-            margin-top: 10px;
-        }
-
-        .os-selector {
-            display: flex;
-            gap: 10px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-
-        .os-tab {
-            background: rgba(0, 40, 80, 0.5);
-            border: 1px solid rgba(0, 255, 255, 0.3);
-            color: #00ffff;
-            padding: 10px 20px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-weight: 600;
-            flex: 1;
-            min-width: 100px;
-            text-align: center;
-        }
-
-        .os-tab:hover {
-            border-color: #00ffff;
-            box-shadow: 0 0 15px rgba(0, 255, 255, 0.3);
-        }
-
-        .os-tab.active {
-            background: linear-gradient(135deg, rgba(0, 255, 255, 0.3), rgba(0, 153, 255, 0.3));
-            border-color: #00ffff;
-            box-shadow: 0 0 20px rgba(0, 255, 255, 0.4);
-        }
-
-        .os-command {
-            display: none;
-        }
-
-        .os-command.active {
-            display: block;
-        }
-
-        @media (max-width: 768px) {
-            h1 {
-                font-size: 2em;
-                letter-spacing: 1px;
-            }
-
-            .subtitle {
-                font-size: 1.1em;
-            }
-
-            .description {
-                font-size: 1em;
-                padding: 0 10px;
-            }
-
-            section {
-                padding: 20px;
-                margin-bottom: 20px;
-            }
-
-            h2 {
-                font-size: 1.8em;
-            }
-
-            h3 {
-                font-size: 1.3em;
-            }
-
-            .feature-grid {
-                grid-template-columns: 1fr;
-                gap: 15px;
-            }
-
-            .step {
-                padding-left: 10px;
-                border-left-width: 2px;
-            }
-
-            .step-number {
-                width: 30px;
-                height: 30px;
-                line-height: 30px;
-                font-size: 0.9em;
-                margin-right: 10px;
-            }
-
-            .command-box {
-                padding: 15px;
-                font-size: 0.85em;
-                margin: 15px 0;
-            }
-
-            .copy-btn {
-                padding: 5px 10px;
-                font-size: 0.8em;
-                top: 8px;
-                right: 8px;
-            }
-
-            .tech-stack {
-                gap: 15px;
-            }
-
-            .tech-badge {
-                padding: 10px 15px;
-                font-size: 0.9em;
-                flex: 0 1 auto;
-            }
-
-            .os-tab {
-                font-size: 0.9em;
-                padding: 8px 15px;
-                min-width: 80px;
-            }
-
-            header {
-                padding: 40px 15px 30px;
-            }
-
-            .container {
-                padding: 15px;
-            }
-        }
-
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 1.6em;
-            }
-
-            .subtitle {
-                font-size: 1em;
-            }
-
-            h2 {
-                font-size: 1.5em;
-            }
-
-            .feature-card {
-                padding: 20px;
-            }
-
-            .command-box {
-                font-size: 0.75em;
-                padding: 12px;
-            }
-
-            .step-number {
-                width: 28px;
-                height: 28px;
-                line-height: 28px;
-                font-size: 0.85em;
-            }
-
-            .tech-badge {
-                font-size: 0.85em;
-                padding: 8px 12px;
-            }
-        }
-    </style>
+    <!-- External CSS -->
+    <link rel="stylesheet" href="public/css/styles.css">
 </head>
 
 <body>
@@ -693,67 +186,171 @@
         <section id="quickstart">
             <h2>🚀 Quick Start</h2>
 
-            <div class="step">
-                <h3><span class="step-number">1</span>Clone the Repository</h3>
-                <div class="command-box">
-                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
-                    <pre><code>git clone https://github.com/Constellation-Overwatch/constellation-overwatch.git
-cd constellation-overwatch</code></pre>
-                </div>
+            <div class="os-selector">
+                <div class="os-tab active" onclick="selectInstallMethod('installer')">⚡ Installer (Recommended)</div>
+                <div class="os-tab" onclick="selectInstallMethod('source')">🔧 Build from Source</div>
             </div>
 
-            <div class="step">
-                <h3><span class="step-number">2</span>Install Task Runner</h3>
+            <!-- INSTALLER METHOD -->
+            <div class="os-command active" id="install-installer">
+                <div class="step">
+                    <h3><span class="step-number">1</span>Install Overwatch</h3>
 
-                <div class="os-selector">
-                    <div class="os-tab active" onclick="selectOS('macos')">🍎 macOS</div>
-                    <div class="os-tab" onclick="selectOS('linux')">🐧 Linux</div>
-                    <div class="os-tab" onclick="selectOS('windows')">🪟 Windows</div>
-                </div>
+                    <div class="os-selector">
+                        <div class="os-tab active" onclick="selectInstallerOS('unix')">🐧 Linux / 🍎 macOS</div>
+                        <div class="os-tab" onclick="selectInstallerOS('windows')">🪟 Windows</div>
+                    </div>
 
-                <div class="os-command active" id="cmd-macos">
-                    <div class="command-box">
-                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
-                        <pre><code>brew install go-task/tap/go-task</code></pre>
+                    <div class="os-command active" id="installer-cmd-unix">
+                        <div class="command-box">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <pre><code>curl -LsSf https://constellation-overwatch.github.io/overwatch/install.sh | sh</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="os-command" id="installer-cmd-windows">
+                        <div class="command-box">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <pre><code>powershell -ExecutionPolicy Bypass -c "irm https://constellation-overwatch.github.io/overwatch/install.ps1 | iex"</code></pre>
+                        </div>
                     </div>
                 </div>
 
-                <div class="os-command" id="cmd-linux">
+                <div class="step">
+                    <h3><span class="step-number">2</span>Start the Server</h3>
                     <div class="command-box">
                         <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
-                        <pre><code>sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin</code></pre>
-                    </div>
-                </div>
+                        <pre><code># Rapid start - just run it!
+overwatch
 
-                <div class="os-command" id="cmd-windows">
-                    <div class="command-box">
-                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
-                        <pre><code>scoop install task</code></pre>
+# Custom port
+overwatch -port 9090
+
+# Production with secure tokens
+overwatch -api-token $(openssl rand -hex 32) -nats-token $(openssl rand -hex 32)</code></pre>
                     </div>
-                    <p style="margin-top: 10px; color: #aaa; font-size: 0.9em;">
-                        Requires <a href="https://scoop.sh/" target="_blank">Scoop package manager</a>
+                    <p style="margin-top: 15px; color: #aaa;">
+                        Server starts on <span class="highlight">http://localhost:8080</span> (API & Web UI)<br>
+                        NATS messaging on port <span class="highlight">4222</span>
                     </p>
+
+                    <div style="background: rgba(0, 80, 40, 0.4); border: 1px solid rgba(0, 255, 136, 0.4); border-left: 4px solid #00ff88; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                        <h4 style="color: #00ff88; margin-bottom: 15px;">🔐 Default Credentials</h4>
+                        <div style="font-family: 'Courier New', monospace; color: #aaa; line-height: 1.6;">
+                            <strong style="color: #00ffff;">Web UI Password:</strong> <code style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize</code><br>
+                            <strong style="color: #00ffff;">API Token:</strong> <code style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-dev-token</code><br>
+                            <strong style="color: #00ffff;">NATS Auth Token:</strong> <code style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-america</code>
+                        </div>
+                        <p style="margin-top: 12px; color: #ff8c00; font-size: 0.9em;">
+                            <strong>⚠️ Production:</strong> Use custom tokens with <code style="color: #00ffff;">-api-token</code> and <code style="color: #00ffff;">-nats-token</code> flags
+                        </p>
+                    </div>
+                </div>
+
+
+                <div style="background: rgba(0, 40, 80, 0.4); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 8px; padding: 20px; margin-top: 30px;">
+                    <h4 style="color: #00ffff; margin-bottom: 15px;">🔧 CLI Configuration Options</h4>
+                    <div class="command-box" style="background: rgba(0, 0, 0, 0.4);">
+                        <pre><code>OPTIONS:
+    -port &lt;PORT&gt;          Web UI and API port (default: 8080)
+    -host &lt;HOST&gt;          Bind address (default: 0.0.0.0)
+    -nats-port &lt;PORT&gt;     NATS server port (default: 4222)
+    -api-token &lt;TOKEN&gt;    API bearer token
+    -nats-token &lt;TOKEN&gt;   NATS auth token
+    -data-dir &lt;PATH&gt;      Data directory (default: ./data)
+    -env &lt;PATH&gt;           Path to .env file (default: .env)
+    -version              Print version and exit
+    -help                 Show this help message
+
+Priority Order: CLI flags > environment variables > .env file > defaults</code></pre>
+                    </div>
                 </div>
             </div>
 
-            <div class="step">
-                <h3><span class="step-number">3</span>Start the Server</h3>
-                <div class="command-box">
-                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
-                    <pre><code># Development mode with auto-reload
+            <!-- SOURCE BUILD METHOD -->
+            <div class="os-command" id="install-source">
+                <div class="step">
+                    <h3><span class="step-number">1</span>Clone the Repository</h3>
+                    <div class="command-box">
+                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                        <pre><code>git clone https://github.com/Constellation-Overwatch/constellation-overwatch.git
+cd constellation-overwatch</code></pre>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">2</span>Install Task Runner</h3>
+
+                    <div class="os-selector">
+                        <div class="os-tab active" onclick="selectSourceOS('macos')">🍎 macOS</div>
+                        <div class="os-tab" onclick="selectSourceOS('linux')">🐧 Linux</div>
+                        <div class="os-tab" onclick="selectSourceOS('windows')">🪟 Windows</div>
+                    </div>
+
+                    <div class="os-command active" id="source-cmd-macos">
+                        <div class="command-box">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <pre><code>brew install go-task/tap/go-task</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="os-command" id="source-cmd-linux">
+                        <div class="command-box">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <pre><code>sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="os-command" id="source-cmd-windows">
+                        <div class="command-box">
+                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <pre><code>scoop install task</code></pre>
+                        </div>
+                        <p style="margin-top: 10px; color: #aaa; font-size: 0.9em;">
+                            Requires <a href="https://scoop.sh/" target="_blank">Scoop package manager</a>
+                        </p>
+                    </div>
+                </div>
+
+                <div class="step">
+                    <h3><span class="step-number">3</span>Start the Server</h3>
+                    <div class="command-box">
+                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                        <pre><code># Development mode with auto-reload
 task dev
 
 # OR run directly
 go run ./cmd/microlith/main.go</code></pre>
+                    </div>
+                    <p style="margin-top: 15px; color: #aaa;">
+                        Server starts on <span class="highlight">http://localhost:8080</span> (API & Web UI)<br>
+                        NATS messaging on port <span class="highlight">4222</span>
+                    </p>
+
+                    <div style="background: rgba(0, 80, 40, 0.4); border: 1px solid rgba(0, 255, 136, 0.4); border-left: 4px solid #00ff88; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                        <h4 style="color: #00ff88; margin-bottom: 15px;">🔐 Default Credentials</h4>
+                        <div style="font-family: 'Courier New', monospace; color: #aaa; line-height: 1.6;">
+                            <strong style="color: #00ffff;">Web UI Password:</strong> <code style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize</code><br>
+                            <strong style="color: #00ffff;">API Token:</strong> <code style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-dev-token</code><br>
+                            <strong style="color: #00ffff;">NATS Auth Token:</strong> <code style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-america</code>
+                        </div>
+                        <p style="margin-top: 12px; color: #ff8c00; font-size: 0.9em;">
+                            <strong>⚠️ Production:</strong> Use custom tokens with CLI flags or environment variables
+                        </p>
+                    </div>
                 </div>
-                <p style="margin-top: 15px; color: #aaa;">
-                    Server starts on <span class="highlight">http://localhost:8080</span> (API & Web UI)<br>
-                    NATS messaging on port <span class="highlight">4222</span>
-                </p>
+
+                <div class="step">
+                    <h3><span class="step-number">4</span>Create Your Organization</h3>
+                    <p style="color: #aaa; margin-bottom: 15px;">
+                        Follow the organization setup steps below (same for both installation methods).
+                    </p>
+                </div>
             </div>
 
-            <div class="step">
-                <h3><span class="step-number">4</span>Create Your Organization</h3>
+            <!-- SHARED ORGANIZATION SETUP -->
+            <div class="step" style="margin-top: 40px;">
+                <h3><span class="step-number">3</span>Create Your Organization</h3>
 
                 <div class="os-selector">
                     <div class="os-tab active" onclick="selectOrgMethod('webui')">🌐 Web UI</div>
@@ -779,7 +376,7 @@ go run ./cmd/microlith/main.go</code></pre>
                     </p>
                     <div class="command-box">
                         <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
-                        <pre><code>export TOKEN="constellation-dev-token"
+                        <pre><code>export TOKEN="reindustrialize-dev-token"
 
 curl -X POST http://localhost:8080/api/v1/organizations \
   -H "Authorization: Bearer $TOKEN" \
@@ -820,7 +417,8 @@ curl -X POST http://localhost:8080/api/v1/organizations \
                 <h3><span class="step-number">1</span>Register Your Entity</h3>
                 <div class="command-box">
                     <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
-                    <pre><code>export ORG_ID='your-org-id-here'
+                    <pre><code>export TOKEN="reindustrialize-dev-token"
+export ORG_ID='your-org-id-here'
 
 curl -X POST "http://localhost:8080/api/v1/entities?org_id=$ORG_ID" \
   -H "Authorization: Bearer $TOKEN" \
@@ -1587,60 +1185,10 @@ nats kv put CONSTELLATION_GLOBAL_STATE "$ENTITY_ID" \
             renderer.setSize(window.innerWidth, window.innerHeight);
         });
 
-        // Copy to clipboard functionality
-        function copyToClipboard(button) {
-            const codeBlock = button.parentElement.querySelector('code');
-            const text = codeBlock.textContent;
-
-            navigator.clipboard.writeText(text).then(() => {
-                // Visual feedback
-                button.classList.add('copied');
-                button.textContent = 'Copied';
-
-                // Reset after 2 seconds
-                setTimeout(() => {
-                    button.classList.remove('copied');
-                    button.textContent = 'Copy';
-                }, 2000);
-            }).catch(err => {
-                console.error('Failed to copy text: ', err);
-                button.textContent = 'Failed';
-                setTimeout(() => {
-                    button.textContent = 'Copy';
-                }, 2000);
-            });
-        }
-
-        // OS selector functionality
-        function selectOS(os) {
-            // Remove active class from all tabs and commands
-            document.querySelectorAll('.os-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.os-command').forEach(cmd => {
-                cmd.classList.remove('active');
-            });
-
-            // Add active class to selected tab and command
-            event.target.classList.add('active');
-            document.getElementById('cmd-' + os).classList.add('active');
-        }
-
-        // Organization method selector
-        function selectOrgMethod(method) {
-            // Remove active class from all tabs and commands
-            document.querySelectorAll('.os-tab').forEach(tab => {
-                tab.classList.remove('active');
-            });
-            document.querySelectorAll('.os-command').forEach(cmd => {
-                cmd.classList.remove('active');
-            });
-
-            // Add active class to selected tab and command
-            event.target.classList.add('active');
-            document.getElementById('org-' + method).classList.add('active');
-        }
     </script>
+
+    <!-- External JavaScript -->
+    <script src="public/js/main.js"></script>
 </body>
 
 </html>

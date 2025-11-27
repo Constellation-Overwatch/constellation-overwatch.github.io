@@ -21,7 +21,7 @@ Constellation Overwatch is an open-source C4ISR (Command, Control, Communication
 #### Entity Registration
 ```bash
 curl -X POST "http://localhost:8080/api/v1/entities?org_id={org_id}" \
-  -H "Authorization: Bearer constellation-dev-token" \
+  -H "Authorization: Bearer reindustrialize-dev-token" \
   -H "Content-Type: application/json" \
   -d '{
     "name": "AI-Agent-001",
@@ -67,6 +67,6 @@ task dev  # Starts server on localhost:8080
 - License: Open Source (check repository for specific license)
 
 ### Security Notes
-- Development token: "constellation-dev-token"
+- Development token: "reindustrialize-dev-token"
 - Production: Use proper authentication
 - All communications over secure channels in production
