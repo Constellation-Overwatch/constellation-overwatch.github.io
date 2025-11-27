@@ -187,12 +187,12 @@
             <h2>🚀 Quick Start</h2>
 
             <div class="os-selector">
-                <div class="os-tab active" onclick="selectInstallMethod('installer')">⚡ Installer (Recommended)</div>
-                <div class="os-tab" onclick="selectInstallMethod('source')">🔧 Build from Source</div>
+                <!-- <div class="os-tab active" onclick="selectInstallMethod('installer')">⚡ Installer (Recommended)</div> -->
+                <div class="os-tab active" onclick="selectInstallMethod('source')">🔧 Build from Source</div>
             </div>
 
-            <!-- INSTALLER METHOD -->
-            <div class="os-command active" id="install-installer">
+            <!-- INSTALLER METHOD - HIDDEN -->
+            <!-- <div class="os-command active" id="install-installer">
                 <div class="step">
                     <h3><span class="step-number">1</span>Install Overwatch</h3>
 
@@ -265,10 +265,10 @@ overwatch -api-token $(openssl rand -hex 32) -nats-token $(openssl rand -hex 32)
 Priority Order: CLI flags > environment variables > .env file > defaults</code></pre>
                     </div>
                 </div>
-            </div>
+            </div> -->
 
             <!-- SOURCE BUILD METHOD -->
-            <div class="os-command" id="install-source">
+            <div class="os-command active" id="install-source">
                 <div class="step">
                     <h3><span class="step-number">1</span>Clone the Repository</h3>
                     <div class="command-box">
@@ -350,7 +350,7 @@ go run ./cmd/microlith/main.go</code></pre>
 
             <!-- SHARED ORGANIZATION SETUP -->
             <div class="step" style="margin-top: 40px;">
-                <h3><span class="step-number">3</span>Create Your Organization</h3>
+                <h3><span class="step-number">4</span>Create Your Organization</h3>
 
                 <div class="os-selector">
                     <div class="os-tab active" onclick="selectOrgMethod('webui')">🌐 Web UI</div>
