@@ -35,33 +35,33 @@ success() {
     printf "${GREEN}success${NC}: %s\n" "$1"
 }
 
-# Detect OS and architecture
-detect_platform() {
-    local os arch
+# Download binary from GitHub releases
+download_binary() {
+    local temp_dir download_url
     
-    case "$(uname -s)" in
-        Darwin) os="darwin" ;;
-        Linux) os="linux" ;;
-        *) error "Unsupported OS: $(uname -s)" ;;
-    esac
+    temp_dir=$(mktemp -d)
+    trap 'rm -rf "$temp_dir"' EXIT
     
-    case "$(uname -m)" in
-        x86_64|amd64) arch="x86_64" ;;
-        aarch64|arm64) arch="aarch64" ;;
-        *) error "Unsupported architecture: $(uname -m)" ;;
-    esac
+    download_url="https://github.com/${GITHUB_REPO}/releases/latest/download/${BINARY_NAME}"
     
-    if [ "$os" = "darwin" ] && [ "$arch" = "x86_64" ]; then
-        echo "x86_64-apple-darwin"
-    elif [ "$os" = "darwin" ] && [ "$arch" = "aarch64" ]; then
-        echo "aarch64-apple-darwin"
-    elif [ "$os" = "linux" ] && [ "$arch" = "x86_64" ]; then
-        echo "x86_64-unknown-linux-gnu"
-    elif [ "$os" = "linux" ] && [ "$arch" = "aarch64" ]; then
-        echo "aarch64-unknown-linux-gnu"
+    info "Downloading binary from GitHub releases..."
+    
+    if command_exists curl; then
+        curl -fsSL "$download_url" -o "$temp_dir/$BINARY_NAME" || error "Failed to download binary"
+    elif command_exists wget; then
+        wget -q "$download_url" -O "$temp_dir/$BINARY_NAME" || error "Failed to download binary"
     else
-        error "Unsupported platform: $os-$arch"
+        error "Either curl or wget is required for installation"
     fi
+    
+    # Create install directory
+    mkdir -p "$INSTALL_DIR" || error "Failed to create install directory: $INSTALL_DIR"
+    
+    # Install the binary
+    cp "$temp_dir/$BINARY_NAME" "$INSTALL_DIR/$BINARY_NAME" || error "Failed to copy binary to $INSTALL_DIR"
+    chmod +x "$INSTALL_DIR/$BINARY_NAME" || error "Failed to make binary executable"
+    
+    success "Downloaded and installed $BINARY_NAME to $INSTALL_DIR/$BINARY_NAME"
 }
 
 # Check if command exists
@@ -69,73 +69,9 @@ command_exists() {
     command -v "$1" >/dev/null 2>&1
 }
 
-# Download and install
+# Install overwatch binary
 install_overwatch() {
-    local platform download_url temp_dir archive_name
-    
-    platform=$(detect_platform)
-    info "Detected platform: $platform"
-    
-    # Determine archive extension based on platform
-    if [[ "$platform" == *"darwin"* ]]; then
-        archive_name="${BINARY_NAME}-${platform}.tar.gz"
-    else
-        archive_name="${BINARY_NAME}-${platform}.tar.gz"
-    fi
-    
-    download_url="https://github.com/${GITHUB_REPO}/releases/latest/download/${archive_name}"
-    
-    info "Downloading from: $download_url"
-    
-    # Create temporary directory
-    temp_dir=$(mktemp -d)
-    trap 'rm -rf "$temp_dir"' EXIT
-    
-    # Download the archive
-    if command_exists curl; then
-        curl -fsSL -o "$temp_dir/$archive_name" "$download_url" || error "Failed to download $archive_name"
-    elif command_exists wget; then
-        wget -q -O "$temp_dir/$archive_name" "$download_url" || error "Failed to download $archive_name"
-    else
-        error "Neither curl nor wget found. Please install one of them."
-    fi
-    
-    info "Downloaded $archive_name"
-    
-    # Extract the archive
-    cd "$temp_dir"
-    if [[ "$archive_name" == *.tar.gz ]]; then
-        tar -xzf "$archive_name" || error "Failed to extract $archive_name"
-    else
-        error "Unsupported archive format: $archive_name"
-    fi
-    
-    # Find the binary (it might be in a subdirectory)
-    binary_path=""
-    if [ -f "$BINARY_NAME" ]; then
-        binary_path="$BINARY_NAME"
-    elif [ -f "bin/$BINARY_NAME" ]; then
-        binary_path="bin/$BINARY_NAME"
-    elif [ -f "./$BINARY_NAME" ]; then
-        binary_path="./$BINARY_NAME"
-    else
-        # Try to find it recursively
-        binary_path=$(find . -name "$BINARY_NAME" -type f | head -n1)
-        if [ -z "$binary_path" ]; then
-            error "Could not find $BINARY_NAME binary in the downloaded archive"
-        fi
-    fi
-    
-    info "Found binary at: $binary_path"
-    
-    # Create install directory
-    mkdir -p "$INSTALL_DIR" || error "Failed to create install directory: $INSTALL_DIR"
-    
-    # Install the binary
-    cp "$binary_path" "$INSTALL_DIR/$BINARY_NAME" || error "Failed to copy binary to $INSTALL_DIR"
-    chmod +x "$INSTALL_DIR/$BINARY_NAME" || error "Failed to make binary executable"
-    
-    success "Installed $BINARY_NAME to $INSTALL_DIR/$BINARY_NAME"
+    download_binary
 }
 
 # Update PATH if needed
@@ -205,15 +141,6 @@ verify_installation() {
 # Main installation process
 main() {
     info "Installing Constellation Overwatch..."
-    
-    # Check for required tools
-    if ! command_exists curl && ! command_exists wget; then
-        error "Either curl or wget is required for installation"
-    fi
-    
-    if ! command_exists tar; then
-        error "tar is required for installation"
-    fi
     
     # Install
     install_overwatch

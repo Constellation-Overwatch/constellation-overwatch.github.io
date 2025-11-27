@@ -71,35 +71,17 @@ EXAMPLES:
     install.ps1 -InstallDir "C:\tools\overwatch"
 
 The installer will:
-1. Detect your system architecture
-2. Download the latest release from GitHub
-3. Install to the specified directory
-4. Add the directory to your PATH
+1. Download the latest release from GitHub
+2. Install to the specified directory
+3. Add the directory to your PATH
 
 "@
     exit 0
 }
 
-# Detect architecture
-function Get-Architecture {
-    $arch = $env:PROCESSOR_ARCHITECTURE
-    $archReal = $env:PROCESSOR_ARCHITEW6432
-    
-    if ($archReal -eq "AMD64" -or $arch -eq "AMD64") {
-        return "x86_64"
-    }
-    elseif ($archReal -eq "ARM64" -or $arch -eq "ARM64") {
-        return "aarch64"
-    }
-    else {
-        Write-Error-Custom "Unsupported architecture: $arch (real: $archReal)"
-    }
-}
-
-# Get platform string
-function Get-Platform {
-    $arch = Get-Architecture
-    return "x86_64-pc-windows-msvc"  # Currently only support x64 Windows
+# Download binary from GitHub releases
+function Get-OverwatchBinary {
+    return $BinaryName
 }
 
 # Check if directory is in PATH
@@ -143,111 +125,45 @@ function Add-ToPath {
     }
 }
 
-# Download and extract
+# Download and install
 function Install-Overwatch {
-    $platform = Get-Platform
-    Write-Info "Detected platform: $platform"
+    $downloadUrl = "https://github.com/$GitHubRepo/releases/latest/download/$BinaryName"
     
-    # For Windows, we expect a .exe file directly or in a zip
-    $archiveName = "overwatch-$platform.zip"
-    $downloadUrl = "https://github.com/$GitHubRepo/releases/latest/download/$archiveName"
-    
-    Write-Info "Downloading from: $downloadUrl"
+    Write-Info "Downloading binary from GitHub releases..."
+    Write-Info "Download URL: $downloadUrl"
     
     # Create temporary directory
     $tempDir = Join-Path $env:TEMP "overwatch-install-$(Get-Random)"
     New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
     
     try {
-        $archivePath = Join-Path $tempDir $archiveName
+        $tempBinaryPath = Join-Path $tempDir $BinaryName
         
-        # Download the archive
+        # Download the binary directly
         try {
-            Write-Info "Downloading $archiveName..."
-            Invoke-WebRequest -Uri $downloadUrl -OutFile $archivePath -UseBasicParsing
-            Write-Info "Downloaded $archiveName"
+            Write-Info "Downloading $BinaryName..."
+            Invoke-WebRequest -Uri $downloadUrl -OutFile $tempBinaryPath -UseBasicParsing
+            Write-Info "Downloaded $BinaryName successfully"
         }
         catch {
-            # Try direct .exe download as fallback
-            $exeName = "overwatch-$platform.exe"
-            $exeUrl = "https://github.com/$GitHubRepo/releases/latest/download/$exeName"
-            $exePath = Join-Path $tempDir $BinaryName
-            
-            Write-Info "Trying direct download: $exeUrl"
-            try {
-                Invoke-WebRequest -Uri $exeUrl -OutFile $exePath -UseBasicParsing
-                Write-Info "Downloaded $exeName"
-                
-                # Create install directory
-                if (-not (Test-Path $InstallDir)) {
-                    New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
-                }
-                
-                # Copy binary
-                $finalPath = Join-Path $InstallDir $BinaryName
-                Copy-Item $exePath $finalPath -Force
-                
-                Write-Success "Installed $BinaryName to $finalPath"
-                return
-            }
-            catch {
-                Write-Error-Custom "Failed to download from both $downloadUrl and $exeUrl. Error: $_"
-            }
+            Write-Error-Custom "Failed to download from $downloadUrl. Error: $_"
         }
         
-        # Extract archive if we got here
-        if (Test-Path $archivePath) {
-            Write-Info "Extracting archive..."
-            
-            # Handle different archive types
-            if ($archiveName.EndsWith('.zip')) {
-                Expand-Archive -Path $archivePath -DestinationPath $tempDir -Force
-            }
-            else {
-                Write-Error-Custom "Unsupported archive format: $archiveName"
-            }
-            
-            # Find the binary
-            $binaryPath = ""
-            $possiblePaths = @(
-                (Join-Path $tempDir $BinaryName),
-                (Join-Path $tempDir "bin\$BinaryName"),
-                (Join-Path $tempDir "*\$BinaryName")
-            )
-            
-            foreach ($path in $possiblePaths) {
-                $found = Get-ChildItem -Path $path -ErrorAction SilentlyContinue
-                if ($found) {
-                    $binaryPath = $found[0].FullName
-                    break
-                }
-            }
-            
-            if (-not $binaryPath -or -not (Test-Path $binaryPath)) {
-                # Search recursively
-                $found = Get-ChildItem -Path $tempDir -Name $BinaryName -Recurse -ErrorAction SilentlyContinue
-                if ($found) {
-                    $binaryPath = Join-Path $tempDir $found[0]
-                }
-            }
-            
-            if (-not $binaryPath -or -not (Test-Path $binaryPath)) {
-                Write-Error-Custom "Could not find $BinaryName binary in the downloaded archive"
-            }
-            
-            Write-Info "Found binary at: $binaryPath"
-            
-            # Create install directory
-            if (-not (Test-Path $InstallDir)) {
-                New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
-            }
-            
-            # Copy binary
-            $finalPath = Join-Path $InstallDir $BinaryName
-            Copy-Item $binaryPath $finalPath -Force
-            
-            Write-Success "Installed $BinaryName to $finalPath"
+        # Verify the download
+        if (-not (Test-Path $tempBinaryPath)) {
+            Write-Error-Custom "Downloaded file not found at $tempBinaryPath"
         }
+        
+        # Create install directory
+        if (-not (Test-Path $InstallDir)) {
+            New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
+        }
+        
+        # Copy binary to install directory
+        $finalPath = Join-Path $InstallDir $BinaryName
+        Copy-Item $tempBinaryPath $finalPath -Force
+        
+        Write-Success "Installed $BinaryName to $finalPath"
     }
     finally {
         # Clean up temp directory
