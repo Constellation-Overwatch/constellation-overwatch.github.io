@@ -1,14 +1,15 @@
 # Constellation Overwatch PowerShell installer script
-# Based on uv's installer pattern for Windows
+# Downloads platform-specific binaries from GitHub Releases
 
 param(
     [string]$InstallDir = "$env:USERPROFILE\AppData\Local\overwatch",
+    [string]$Version = "",
     [switch]$Help
 )
 
 # Configuration
 $GitHubRepo = "Constellation-Overwatch/constellation-overwatch"
-$BinaryName = "overwatch.exe"
+$BinaryName = "overwatch"
 $ProgressPreference = 'SilentlyContinue'  # Disable progress bar for faster downloads
 
 # Color output functions
@@ -17,17 +18,7 @@ function Write-ColorOutput {
         [string]$Message,
         [string]$Color = "White"
     )
-    
-    $colorMap = @{
-        "Red" = "Red"
-        "Green" = "Green"
-        "Yellow" = "Yellow"
-        "Blue" = "Blue"
-        "Cyan" = "Cyan"
-        "White" = "White"
-    }
-    
-    Write-Host $Message -ForegroundColor $colorMap[$Color]
+    Write-Host $Message -ForegroundColor $Color
 }
 
 function Write-Info {
@@ -40,7 +31,7 @@ function Write-Warn {
     Write-ColorOutput "warning: $Message" -Color "Yellow"
 }
 
-function Write-Error-Custom {
+function Write-ErrorCustom {
     param([string]$Message)
     Write-ColorOutput "error: $Message" -Color "Red"
     exit 1
@@ -60,49 +51,122 @@ USAGE:
     install.ps1 [OPTIONS]
 
 OPTIONS:
-    -InstallDir <path>    Custom installation directory (default: $env:USERPROFILE\AppData\Local\overwatch)
+    -InstallDir <path>    Custom installation directory (default: %USERPROFILE%\AppData\Local\overwatch)
+    -Version <version>    Install a specific version (e.g., v0.0.5-beta)
     -Help                 Show this help message
 
 EXAMPLES:
-    # Install to default location
-    install.ps1
-    
+    # Install latest version
+    irm https://raw.githubusercontent.com/Constellation-Overwatch/constellation-overwatch/main/install.ps1 | iex
+
     # Install to custom directory
-    install.ps1 -InstallDir "C:\tools\overwatch"
+    .\install.ps1 -InstallDir "C:\tools\overwatch"
+
+    # Install specific version
+    .\install.ps1 -Version "v0.0.5-beta"
 
 The installer will:
-1. Download the latest release from GitHub
-2. Install to the specified directory
-3. Add the directory to your PATH
+1. Detect your system architecture (amd64/arm64)
+2. Download the appropriate release from GitHub
+3. Verify the checksum
+4. Install to the specified directory
+5. Add the directory to your PATH
 
 "@
     exit 0
 }
 
-# Download binary from GitHub releases
-function Get-OverwatchBinary {
-    return $BinaryName
+# Detect architecture
+function Get-Architecture {
+    $arch = $env:PROCESSOR_ARCHITECTURE
+    switch ($arch) {
+        "AMD64" { return "amd64" }
+        "ARM64" { return "arm64" }
+        "x86"   {
+            # Check if running on 64-bit OS
+            if ([Environment]::Is64BitOperatingSystem) {
+                return "amd64"
+            }
+            Write-ErrorCustom "32-bit systems are not supported"
+        }
+        default { Write-ErrorCustom "Unsupported architecture: $arch" }
+    }
+}
+
+# Get latest version from GitHub API
+function Get-LatestVersion {
+    $apiUrl = "https://api.github.com/repos/$GitHubRepo/releases/latest"
+
+    try {
+        $response = Invoke-RestMethod -Uri $apiUrl -UseBasicParsing
+        return $response.tag_name
+    }
+    catch {
+        Write-ErrorCustom "Failed to fetch latest version from GitHub: $_"
+    }
+}
+
+# Verify checksum
+function Test-Checksum {
+    param(
+        [string]$FilePath,
+        [string]$ChecksumsContent,
+        [string]$FileName
+    )
+
+    Write-Info "Verifying checksum..."
+
+    # Parse checksums file to find the expected hash
+    $lines = $ChecksumsContent -split "`n"
+    $expectedHash = $null
+
+    foreach ($line in $lines) {
+        if ($line -match "^([a-fA-F0-9]{64})\s+$([regex]::Escape($FileName))") {
+            $expectedHash = $matches[1]
+            break
+        }
+    }
+
+    if (-not $expectedHash) {
+        Write-Warn "Could not find checksum for $FileName, skipping verification"
+        return $true
+    }
+
+    # Calculate actual hash
+    $actualHash = (Get-FileHash -Path $FilePath -Algorithm SHA256).Hash
+
+    if ($actualHash -ieq $expectedHash) {
+        Write-Success "Checksum verified"
+        return $true
+    }
+    else {
+        Write-ErrorCustom "Checksum mismatch! Expected: $expectedHash, Got: $actualHash"
+        return $false
+    }
 }
 
 # Check if directory is in PATH
 function Test-PathDirectory {
     param([string]$Directory)
-    
+
     $currentPath = [Environment]::GetEnvironmentVariable("PATH", "User")
-    return $currentPath -split ";" | ForEach-Object { $_.TrimEnd('\') } | Where-Object { $_ -eq $Directory.TrimEnd('\') }
+    if (-not $currentPath) { return $false }
+
+    $normalizedDir = $Directory.TrimEnd('\').ToLower()
+    return ($currentPath -split ";" | ForEach-Object { $_.TrimEnd('\').ToLower() }) -contains $normalizedDir
 }
 
 # Add directory to PATH
 function Add-ToPath {
     param([string]$Directory)
-    
+
     if (Test-PathDirectory -Directory $Directory) {
         Write-Info "$Directory is already in PATH"
         return
     }
-    
+
     Write-Info "Adding $Directory to user PATH"
-    
+
     $currentPath = [Environment]::GetEnvironmentVariable("PATH", "User")
     if ($currentPath) {
         $newPath = "$currentPath;$Directory"
@@ -110,59 +174,85 @@ function Add-ToPath {
     else {
         $newPath = $Directory
     }
-    
+
     try {
         [Environment]::SetEnvironmentVariable("PATH", $newPath, "User")
-        
+
         # Update current session PATH
         $env:PATH = "$env:PATH;$Directory"
-        
+
         Write-Success "Added $Directory to PATH"
         Write-Info "You may need to restart your terminal for PATH changes to take effect"
     }
     catch {
-        Write-Error-Custom "Failed to update PATH: $_"
+        Write-ErrorCustom "Failed to update PATH: $_"
     }
 }
 
 # Download and install
 function Install-Overwatch {
-    $downloadUrl = "https://github.com/$GitHubRepo/releases/latest/download/$BinaryName"
-    
-    Write-Info "Downloading binary from GitHub releases..."
-    Write-Info "Download URL: $downloadUrl"
-    
+    param([string]$TargetVersion)
+
+    $arch = Get-Architecture
+    Write-Info "Detected architecture: $arch"
+
+    # Get version
+    if (-not $TargetVersion) {
+        $TargetVersion = Get-LatestVersion
+    }
+    Write-Info "Installing version: $TargetVersion"
+
+    # Build download URLs
+    $archiveName = "${BinaryName}_${TargetVersion}_windows_${arch}.zip"
+    $downloadUrl = "https://github.com/$GitHubRepo/releases/download/$TargetVersion/$archiveName"
+    $checksumsUrl = "https://github.com/$GitHubRepo/releases/download/$TargetVersion/${BinaryName}_${TargetVersion}_checksums.txt"
+
+    Write-Info "Downloading $archiveName..."
+
     # Create temporary directory
     $tempDir = Join-Path $env:TEMP "overwatch-install-$(Get-Random)"
     New-Item -ItemType Directory -Path $tempDir -Force | Out-Null
-    
+
     try {
-        $tempBinaryPath = Join-Path $tempDir $BinaryName
-        
-        # Download the binary directly
+        $tempArchivePath = Join-Path $tempDir $archiveName
+        $tempExtractPath = Join-Path $tempDir "extract"
+
+        # Download the archive
         try {
-            Write-Info "Downloading $BinaryName..."
-            Invoke-WebRequest -Uri $downloadUrl -OutFile $tempBinaryPath -UseBasicParsing
-            Write-Info "Downloaded $BinaryName successfully"
+            Invoke-WebRequest -Uri $downloadUrl -OutFile $tempArchivePath -UseBasicParsing
         }
         catch {
-            Write-Error-Custom "Failed to download from $downloadUrl. Error: $_"
+            Write-ErrorCustom "Failed to download from $downloadUrl. Error: $_"
         }
-        
-        # Verify the download
-        if (-not (Test-Path $tempBinaryPath)) {
-            Write-Error-Custom "Downloaded file not found at $tempBinaryPath"
+
+        # Download and verify checksum
+        try {
+            $checksumsContent = Invoke-WebRequest -Uri $checksumsUrl -UseBasicParsing | Select-Object -ExpandProperty Content
+            Test-Checksum -FilePath $tempArchivePath -ChecksumsContent $checksumsContent -FileName $archiveName
         }
-        
+        catch {
+            Write-Warn "Could not download checksums file, skipping verification"
+        }
+
+        # Extract archive
+        Write-Info "Extracting..."
+        New-Item -ItemType Directory -Path $tempExtractPath -Force | Out-Null
+        Expand-Archive -Path $tempArchivePath -DestinationPath $tempExtractPath -Force
+
         # Create install directory
         if (-not (Test-Path $InstallDir)) {
             New-Item -ItemType Directory -Path $InstallDir -Force | Out-Null
         }
-        
-        # Copy binary to install directory
-        $finalPath = Join-Path $InstallDir $BinaryName
-        Copy-Item $tempBinaryPath $finalPath -Force
-        
+
+        # Find and copy binary
+        $sourceBinary = Get-ChildItem -Path $tempExtractPath -Filter "$BinaryName.exe" -Recurse | Select-Object -First 1
+        if (-not $sourceBinary) {
+            Write-ErrorCustom "Binary not found in archive"
+        }
+
+        $finalPath = Join-Path $InstallDir "$BinaryName.exe"
+        Copy-Item $sourceBinary.FullName $finalPath -Force
+
         Write-Success "Installed $BinaryName to $finalPath"
     }
     finally {
@@ -175,26 +265,26 @@ function Install-Overwatch {
 
 # Verify installation
 function Test-Installation {
-    $binaryPath = Join-Path $InstallDir $BinaryName
-    
+    $binaryPath = Join-Path $InstallDir "$BinaryName.exe"
+
     if (Test-Path $binaryPath) {
         Write-Success "$BinaryName installed successfully!"
         Write-Info "Location: $binaryPath"
-        
+
         # Try to get version
         try {
-            $version = & $binaryPath --version 2>$null
-            if ($version) {
-                Write-Info "Version: $version"
+            $versionOutput = & $binaryPath -version 2>&1
+            if ($versionOutput) {
+                Write-Info "Version: $versionOutput"
             }
         }
         catch {
             Write-Info "Version: unknown"
         }
-        
+
         # Test if it's in PATH
         try {
-            $testResult = Get-Command $BinaryName.Replace('.exe', '') -ErrorAction SilentlyContinue
+            $testResult = Get-Command $BinaryName -ErrorAction SilentlyContinue
             if ($testResult) {
                 Write-Info "You can now run: overwatch --help"
             }
@@ -208,26 +298,28 @@ function Test-Installation {
         }
     }
     else {
-        Write-Error-Custom "Installation verification failed"
+        Write-ErrorCustom "Installation verification failed"
     }
 }
 
 # Main installation process
 function Main {
-    Write-Info "Installing Constellation Overwatch..."
-    
+    Write-Host ""
+    Write-ColorOutput "Constellation Overwatch Installer" -Color "Cyan"
+    Write-Host ""
+
     # Check PowerShell version
     if ($PSVersionTable.PSVersion.Major -lt 5) {
-        Write-Error-Custom "PowerShell 5.0 or later is required"
+        Write-ErrorCustom "PowerShell 5.0 or later is required"
     }
-    
+
     try {
-        Install-Overwatch
+        Install-Overwatch -TargetVersion $Version
         Add-ToPath -Directory $InstallDir
         Test-Installation
-        
+
         Write-Host ""
-        Write-ColorOutput "🚀 Constellation Overwatch installation complete!" -Color "Green"
+        Write-ColorOutput "Installation complete!" -Color "Green"
         Write-Host ""
         Write-Host "Next steps:"
         Write-ColorOutput "  1. Restart your terminal (or open a new one)" -Color "Cyan"
@@ -238,7 +330,7 @@ function Main {
         Write-ColorOutput "GitHub: https://github.com/$GitHubRepo" -Color "Blue"
     }
     catch {
-        Write-Error-Custom "Installation failed: $_"
+        Write-ErrorCustom "Installation failed: $_"
     }
 }
 

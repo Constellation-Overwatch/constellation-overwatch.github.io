@@ -54,14 +54,18 @@ function selectOrgMethod(method) {
 
 // Install method selector
 function selectInstallMethod(method) {
-    // Remove active class from all tabs and commands in quickstart section
+    // Only affect the top-level install method tabs and panels
     const quickstartSection = document.getElementById('quickstart');
-    quickstartSection.querySelectorAll('.os-tab').forEach(tab => {
+
+    // Get the direct os-selector (first one in quickstart)
+    const topSelector = quickstartSection.querySelector(':scope > .os-selector');
+    topSelector.querySelectorAll('.os-tab').forEach(tab => {
         tab.classList.remove('active');
     });
-    quickstartSection.querySelectorAll('.os-command').forEach(cmd => {
-        cmd.classList.remove('active');
-    });
+
+    // Hide both install method panels
+    document.getElementById('install-installer').classList.remove('active');
+    document.getElementById('install-source').classList.remove('active');
 
     // Add active class to selected tab and command
     event.target.classList.add('active');
