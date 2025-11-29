@@ -170,36 +170,36 @@
             <h2>Core Features</h2>
             <div class="feature-grid">
                 <div class="feature-card">
-                    <h4>🚀 Real-time Messaging</h4>
+                    <h4>Real-time Messaging</h4>
                     <p>Low-latency pub/sub communication powered by NATS JetStream</p>
                 </div>
                 <div class="feature-card">
-                    <h4>📡 Telemetry Streaming</h4>
+                    <h4>Telemetry Streaming</h4>
                     <p>Efficient handling of high-frequency sensor data from edge devices</p>
                 </div>
                 <div class="feature-card">
-                    <h4>🤖 Multi-Entity Support</h4>
+                    <h4>Multi-Entity Support</h4>
                     <p>Manage drones, robots, sensors, and autonomous systems</p>
                 </div>
                 <div class="feature-card">
-                    <h4>🔒 Secure API</h4>
+                    <h4>Secure API</h4>
                     <p>RESTful API with bearer token authentication</p>
                 </div>
                 <div class="feature-card">
-                    <h4>📊 Real-time Dashboard</h4>
+                    <h4>Real-time Dashboard</h4>
                     <p>Server-sent events powered UI with Datastar framework</p>
                 </div>
                 <div class="feature-card">
-                    <h4>⚡ Embedded NATS</h4>
+                    <h4>Embedded NATS</h4>
                     <p>Self-contained messaging with rapid global super-clustering capabilities</p>
                 </div>
                 <div class="feature-card">
-                    <h4>🔒 Offline First Design</h4>
+                    <h4>Offline First Design</h4>
                     <p>Full security perimeter isolation, network-agnostic operation for data residency and air-gapped
                         environments</p>
                 </div>
                 <div class="feature-card">
-                    <h4>📍 Edge First Architecture</h4>
+                    <h4>Edge First Architecture</h4>
                     <p>Portable deployment, proximity-based processing to minimize latency and maximize data locality
                         for field operations</p>
                 </div>
@@ -210,8 +210,8 @@
             <h2>Quick Start</h2>
 
             <div class="os-selector">
-                <div class="os-tab active" onclick="selectInstallMethod('installer')">⚡ Installer (Recommended)</div>
-                <div class="os-tab" onclick="selectInstallMethod('source')">🔧 Build from Source</div>
+                <div class="os-tab active" onclick="selectInstallMethod('installer')">Installer (Recommended)</div>
+                <div class="os-tab" onclick="selectInstallMethod('source')">Build from Source</div>
             </div>
 
             <!-- INSTALLER METHOD -->
@@ -220,8 +220,8 @@
                     <h3><span class="step-number">1</span>Install Overwatch</h3>
 
                     <div class="os-selector">
-                        <div class="os-tab active" onclick="selectInstallerOS('unix')">🐧 Linux / 🍎 macOS</div>
-                        <div class="os-tab" onclick="selectInstallerOS('windows')">🪟 Windows</div>
+                        <div class="os-tab active" onclick="selectInstallerOS('unix')">Linux / macOS</div>
+                        <div class="os-tab" onclick="selectInstallerOS('windows')">Windows</div>
                     </div>
 
                     <div class="os-command active" id="installer-cmd-unix">
@@ -259,7 +259,7 @@ overwatch -api-token $(openssl rand -hex 32) -nats-token $(openssl rand -hex 32)
 
                     <div
                         style="background: rgba(0, 80, 40, 0.4); border: 1px solid rgba(0, 255, 136, 0.4); border-left: 4px solid #00ff88; border-radius: 8px; padding: 20px; margin-top: 20px;">
-                        <h4 style="color: #00ff88; margin-bottom: 15px;">🔐 Default Credentials</h4>
+                        <h4 style="color: #00ff88; margin-bottom: 15px;">Default Credentials</h4>
                         <div style="font-family: 'Courier New', monospace; color: #aaa; line-height: 1.6;">
                             <strong style="color: #00ffff;">Web UI Password:</strong> <code
                                 style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize</code><br>
@@ -269,7 +269,7 @@ overwatch -api-token $(openssl rand -hex 32) -nats-token $(openssl rand -hex 32)
                                 style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-america</code>
                         </div>
                         <p style="margin-top: 12px; color: #ff8c00; font-size: 0.9em;">
-                            <strong>⚠️ Production:</strong> Use custom tokens with <code
+                            <strong>Production:</strong> Use custom tokens with <code
                                 style="color: #00ffff;">-api-token</code> and <code
                                 style="color: #00ffff;">-nats-token</code> flags
                         </p>
@@ -279,7 +279,7 @@ overwatch -api-token $(openssl rand -hex 32) -nats-token $(openssl rand -hex 32)
 
                 <div
                     style="background: rgba(0, 40, 80, 0.4); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 8px; padding: 20px; margin-top: 30px;">
-                    <h4 style="color: #00ffff; margin-bottom: 15px;">🔧 CLI Configuration Options</h4>
+                    <h4 style="color: #00ffff; margin-bottom: 15px;">CLI Configuration Options</h4>
                     <div class="command-box" style="background: rgba(0, 0, 0, 0.4);">
                         <pre><code>OPTIONS:
     -port &lt;PORT&gt;          Web UI and API port (default: 8080)
@@ -312,9 +312,9 @@ cd constellation-overwatch</code></pre>
                     <h3><span class="step-number">2</span>Install Task Runner</h3>
 
                     <div class="os-selector">
-                        <div class="os-tab active" onclick="selectSourceOS('macos')">🍎 macOS</div>
-                        <div class="os-tab" onclick="selectSourceOS('linux')">🐧 Linux</div>
-                        <div class="os-tab" onclick="selectSourceOS('windows')">🪟 Windows</div>
+                        <div class="os-tab active" onclick="selectSourceOS('macos')">macOS</div>
+                        <div class="os-tab" onclick="selectSourceOS('linux')">Linux</div>
+                        <div class="os-tab" onclick="selectSourceOS('windows')">Windows</div>
                     </div>
 
                     <div class="os-command active" id="source-cmd-macos">
@@ -359,7 +359,7 @@ go run ./cmd/microlith/main.go</code></pre>
 
                     <div
                         style="background: rgba(0, 80, 40, 0.4); border: 1px solid rgba(0, 255, 136, 0.4); border-left: 4px solid #00ff88; border-radius: 8px; padding: 20px; margin-top: 20px;">
-                        <h4 style="color: #00ff88; margin-bottom: 15px;">🔐 Default Credentials</h4>
+                        <h4 style="color: #00ff88; margin-bottom: 15px;">Default Credentials</h4>
                         <div style="font-family: 'Courier New', monospace; color: #aaa; line-height: 1.6;">
                             <strong style="color: #00ffff;">Web UI Password:</strong> <code
                                 style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize</code><br>
@@ -369,7 +369,7 @@ go run ./cmd/microlith/main.go</code></pre>
                                 style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-america</code>
                         </div>
                         <p style="margin-top: 12px; color: #ff8c00; font-size: 0.9em;">
-                            <strong>⚠️ Production:</strong> Use custom tokens with CLI flags or environment variables
+                            <strong>Production:</strong> Use custom tokens with CLI flags or environment variables
                         </p>
                     </div>
                 </div>
@@ -387,8 +387,8 @@ go run ./cmd/microlith/main.go</code></pre>
                 <h3><span class="step-number">4</span>Create Your Organization</h3>
 
                 <div class="os-selector">
-                    <div class="os-tab active" onclick="selectOrgMethod('webui')">🌐 Web UI</div>
-                    <div class="os-tab" onclick="selectOrgMethod('api')">⚡ API</div>
+                    <div class="os-tab active" onclick="selectOrgMethod('webui')">Web UI</div>
+                    <div class="os-tab" onclick="selectOrgMethod('api')">API</div>
                 </div>
 
                 <div class="os-command active" id="org-webui">
@@ -429,11 +429,11 @@ curl -X POST http://localhost:8080/api/v1/organizations \
         </section>
 
         <section id="clients">
-            <h2>📡 Publishing Clients to CONSTELLATION_GLOBAL_STATE</h2>
+            <h2>Publishing Clients to CONSTELLATION_GLOBAL_STATE</h2>
 
             <div
                 style="background: rgba(255, 140, 0, 0.1); border: 2px solid rgba(255, 140, 0, 0.4); border-radius: 8px; padding: 20px; margin-bottom: 30px;">
-                <h4 style="color: #ff8c00; margin-bottom: 10px;">⚠️ Ontological Data Design</h4>
+                <h4 style="color: #ff8c00; margin-bottom: 10px;">Ontological Data Design</h4>
                 <p style="color: #aaa; font-size: 0.95em; line-height: 1.4;">
                     Constellation uses <strong>ontological data primitives</strong>. Structure all telemetry as signal
                     trees under your <code>entity_id</code> namespace.
@@ -514,7 +514,7 @@ nats kv put CONSTELLATION_GLOBAL_STATE "$ENTITY_ID" \
   }'</code></pre>
                 </div>
                 <p style="margin-top: 15px; color: #00ff00; font-weight: bold;">
-                    ✓ Entity state now stored in CONSTELLATION_GLOBAL_STATE KV with entity_id as key
+                    Entity state now stored in CONSTELLATION_GLOBAL_STATE KV with entity_id as key
                 </p>
             </div>
         </section>
@@ -524,7 +524,7 @@ nats kv put CONSTELLATION_GLOBAL_STATE "$ENTITY_ID" \
 
             <div class="feature-grid">
                 <div class="feature-card coming-soon">
-                    <h4>🛩️ mavlink2constellation</h4>
+                    <h4>mavlink2constellation</h4>
                     <p>
                         High-performance MAVLink to NATS JetStream bridge and telemetry router. Ingest MAVLink telemetry
                         from drones/robotic fleets, parse in real-time, and bridge to Constellation mesh.
@@ -537,7 +537,7 @@ nats kv put CONSTELLATION_GLOBAL_STATE "$ENTITY_ID" \
                 </div>
 
                 <div class="feature-card coming-soon">
-                    <h4>👁️ vision2constellation</h4>
+                    <h4>vision2constellation</h4>
                     <p>
                         Real-time video edge inference system with modular ML detection for the Constellation Overwatch
                         Fabric.
@@ -623,7 +623,11 @@ task deploy</code></pre>
                 </p>
             </div>
         </section>
-
+        <blockquote class="footer-quote">
+            <p>"We want an industrial economy built around productivity rather than exploitation. Innovation drives
+                productivity, which raises wages—in a virtuous cycle underpinned by manufacturing."</p>
+            <cite>— Jamieson Greer</cite>
+        </blockquote>
         <section id="resources">
             <h2>Resources</h2>
             <div class="feature-grid">
@@ -640,7 +644,7 @@ task deploy</code></pre>
                         </a></p>
                 </div>
                 <div class="feature-card">
-                    <h4>🌐 Web Dashboard</h4>
+                    <h4>Web Dashboard</h4>
                     <p><a href="http://localhost:8080" target="_blank">
                             http://localhost:8080
                         </a> (after starting server)</p>
@@ -663,12 +667,7 @@ task deploy</code></pre>
         </section>
 
         <footer>
-            <blockquote class="footer-quote">
-                <p>"We want an industrial economy built around productivity rather than exploitation. Innovation drives
-                    productivity, which raises wages—in a virtuous cycle underpinned by manufacturing."</p>
-                <cite>— Jamieson Greer</cite>
-            </blockquote>
-            <p>Built with 🧑‍🚀❓️💙👽🌌 for the open source community</p>
+            <p>Built with passion for a cheaper, better, and faster economy</p>
             <p
                 style="margin-top: 10px; display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap;">
                 <a href="https://github.com/Constellation-Overwatch" target="_blank"

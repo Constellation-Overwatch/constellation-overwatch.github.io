@@ -211,7 +211,7 @@ h3 {
 }
 
 .copy-btn.copied::after {
-    content: ' ✓';
+    content: ' Copied';
 }
 
 /* Touch-friendly active states */
