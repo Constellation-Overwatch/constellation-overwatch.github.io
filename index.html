@@ -71,12 +71,10 @@
                            font-family: 'Courier New', monospace;">Binary size: 30.3MB</code>
             </div>
 
-            <div style="margin-top: 15px; display: flex; justify-content: center;">
-                <div class="command-box"
-                    style="display: flex; align-items: center; justify-content: space-between; min-width: 500px;">
-                    <code
-                        style="color: #00ff88; font-family: 'Courier New', monospace; font-size: 0.9em;">curl -LsSf https://constellation-overwatch.github.io/overwatch/install.sh | sh</code>
-                    <button class="copy-btn" onclick="copyToClipboard(this)" style="margin-left: 10px;">
+            <div class="header-install-wrapper">
+                <div class="command-box header-install-cmd">
+                    <code class="install-cmd-text">curl -LsSf https://constellation-overwatch.github.io/overwatch/install.sh | sh</code>
+                    <button class="copy-btn header-copy-btn" onclick="copyToClipboard(this)">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
                             <path
                                 d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
@@ -226,14 +224,14 @@
 
                     <div class="os-command active" id="installer-cmd-unix">
                         <div class="command-box">
-                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <button class="copy-btn" onclick="copyToClipboard(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
                             <pre><code>curl -LsSf https://constellation-overwatch.github.io/overwatch/install.sh | sh</code></pre>
                         </div>
                     </div>
 
                     <div class="os-command" id="installer-cmd-windows">
                         <div class="command-box">
-                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <button class="copy-btn" onclick="copyToClipboard(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
                             <pre><code>powershell -ExecutionPolicy Bypass -c "irm https://constellation-overwatch.github.io/overwatch/install.ps1 | iex"</code></pre>
                         </div>
                     </div>
@@ -242,7 +240,7 @@
                 <div class="step">
                     <h3><span class="step-number">2</span>Start the Server</h3>
                     <div class="command-box">
-                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                        <button class="copy-btn" onclick="copyToClipboard(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
                         <pre><code># Rapid start - just run it!
 overwatch
 
@@ -302,7 +300,7 @@ Priority Order: CLI flags > environment variables > .env file > defaults</code><
                 <div class="step">
                     <h3><span class="step-number">1</span>Clone the Repository</h3>
                     <div class="command-box">
-                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                        <button class="copy-btn" onclick="copyToClipboard(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
                         <pre><code>git clone https://github.com/Constellation-Overwatch/constellation-overwatch.git
 cd constellation-overwatch</code></pre>
                     </div>
@@ -319,21 +317,21 @@ cd constellation-overwatch</code></pre>
 
                     <div class="os-command active" id="source-cmd-macos">
                         <div class="command-box">
-                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <button class="copy-btn" onclick="copyToClipboard(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
                             <pre><code>brew install go-task/tap/go-task</code></pre>
                         </div>
                     </div>
 
                     <div class="os-command" id="source-cmd-linux">
                         <div class="command-box">
-                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <button class="copy-btn" onclick="copyToClipboard(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
                             <pre><code>sh -c "$(curl --location https://taskfile.dev/install.sh)" -- -d -b ~/.local/bin</code></pre>
                         </div>
                     </div>
 
                     <div class="os-command" id="source-cmd-windows">
                         <div class="command-box">
-                            <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                            <button class="copy-btn" onclick="copyToClipboard(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
                             <pre><code>scoop install task</code></pre>
                         </div>
                         <p style="margin-top: 10px; color: #aaa; font-size: 0.9em;">
@@ -345,7 +343,7 @@ cd constellation-overwatch</code></pre>
                 <div class="step">
                     <h3><span class="step-number">3</span>Start the Server</h3>
                     <div class="command-box">
-                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                        <button class="copy-btn" onclick="copyToClipboard(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
                         <pre><code># Development mode with auto-reload
 task dev
 
@@ -409,7 +407,7 @@ go run ./cmd/microlith/main.go</code></pre>
                         For programmatic integration
                     </p>
                     <div class="command-box">
-                        <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                        <button class="copy-btn" onclick="copyToClipboard(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
                         <pre><code>export TOKEN="reindustrialize-dev-token"
 
 curl -X POST http://localhost:8080/api/v1/organizations \
@@ -450,7 +448,7 @@ curl -X POST http://localhost:8080/api/v1/organizations \
             <div class="step">
                 <h3><span class="step-number">1</span>Register Your Entity</h3>
                 <div class="command-box">
-                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <button class="copy-btn" onclick="copyToClipboard(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
                     <pre><code>export TOKEN="reindustrialize-dev-token"
 export ORG_ID='your-org-id-here'
 
@@ -480,7 +478,7 @@ curl -X POST "http://localhost:8080/api/v1/entities?org_id=$ORG_ID" \
                     your <span class="highlight">entity_id</span> as the key:
                 </p>
                 <div class="command-box">
-                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <button class="copy-btn" onclick="copyToClipboard(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
                     <pre><code># KV bucket for global state
 CONSTELLATION_GLOBAL_STATE
 
@@ -499,7 +497,7 @@ constellation.commands.{org_id}.{entity_id}</code></pre>
                     key:
                 </p>
                 <div class="command-box">
-                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <button class="copy-btn" onclick="copyToClipboard(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
                     <pre><code>export ENTITY_ID='your-entity-id-here'
 
 # Publish ontological telemetry to CONSTELLATION_GLOBAL_STATE KV bucket
@@ -608,7 +606,7 @@ nats kv put CONSTELLATION_GLOBAL_STATE "$ENTITY_ID" \
             <div class="step">
                 <h3><span class="step-number">1</span>Quick Deploy to Cloud</h3>
                 <div class="command-box">
-                    <button class="copy-btn" onclick="copyToClipboard(this)">Copy</button>
+                    <button class="copy-btn" onclick="copyToClipboard(this)"><svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg></button>
                     <pre><code># Clone and deploy
 git clone https://github.com/Constellation-Overwatch/toolbelt.git
 cd toolbelt
