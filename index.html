@@ -62,8 +62,7 @@
             <h1>CONSTELLATION OVERWATCH</h1>
             <p class="subtitle">Open Source C4ISR</p>
             <p class="description">
-                Data Network Fabric designed for hybrid drone/robotic pub/sub communication, sensor data streaming,
-                and video stream management.
+                Tactical Data Fabric for Autonomous Systems
             </p>
 
             <div style="margin-top: 15px;">
@@ -73,11 +72,14 @@
             </div>
 
             <div style="margin-top: 15px; display: flex; justify-content: center;">
-                <div class="command-box" style="display: flex; align-items: center; justify-content: space-between; min-width: 500px;">
-                    <code style="color: #00ff88; font-family: 'Courier New', monospace; font-size: 0.9em;">curl -LsSf https://constellation-overwatch.github.io/overwatch/install.sh | sh</code>
+                <div class="command-box"
+                    style="display: flex; align-items: center; justify-content: space-between; min-width: 500px;">
+                    <code
+                        style="color: #00ff88; font-family: 'Courier New', monospace; font-size: 0.9em;">curl -LsSf https://constellation-overwatch.github.io/overwatch/install.sh | sh</code>
                     <button class="copy-btn" onclick="copyToClipboard(this)" style="margin-left: 10px;">
                         <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/>
+                            <path
+                                d="M16 1H4C2.9 1 2 1.9 2 3v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z" />
                         </svg>
                     </button>
                 </div>
@@ -104,11 +106,21 @@
                         onmouseover="this.style.borderColor='#00ffff'; this.style.boxShadow='0 0 20px rgba(0, 255, 255, 0.4)'; this.style.transform='translateY(-2px)';"
                         onmouseout="this.style.borderColor='rgba(0, 255, 255, 0.3)'; this.style.boxShadow='0 0 10px rgba(0, 255, 255, 0.2)'; this.style.transform='translateY(0)';">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0002 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9554 2.4189-2.1568 2.4189Z"/>
+                            <path
+                                d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0002 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9554 2.4189-2.1568 2.4189Z" />
                         </svg>
                         View on Discord
                     </a>
                 </div>
+            </div>
+
+            <div style="margin-top: 30px; text-align: center;">
+                <p style="color: #aaa; font-size: 1em; line-height: 1.5; max-width: 800px; margin: 0 auto;">
+                    Lightweight industrial data stack designed with ontological data primitives.<br><br> <code
+                        style="background: rgba(0, 0, 0, 0.3); color: #00ff88; padding: 2px 6px; border-radius: 3px;">entity_id</code>
+                    namespacing for UAVs, robotics, sensors, and real-time video intelligence at the edge and under your
+                    security control.
+                </p>
             </div>
 
             <div class="tech-stack">
@@ -245,21 +257,28 @@ overwatch -api-token $(openssl rand -hex 32) -nats-token $(openssl rand -hex 32)
                         NATS messaging on port <span class="highlight">4222</span>
                     </p>
 
-                    <div style="background: rgba(0, 80, 40, 0.4); border: 1px solid rgba(0, 255, 136, 0.4); border-left: 4px solid #00ff88; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                    <div
+                        style="background: rgba(0, 80, 40, 0.4); border: 1px solid rgba(0, 255, 136, 0.4); border-left: 4px solid #00ff88; border-radius: 8px; padding: 20px; margin-top: 20px;">
                         <h4 style="color: #00ff88; margin-bottom: 15px;">🔐 Default Credentials</h4>
                         <div style="font-family: 'Courier New', monospace; color: #aaa; line-height: 1.6;">
-                            <strong style="color: #00ffff;">Web UI Password:</strong> <code style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize</code><br>
-                            <strong style="color: #00ffff;">API Token:</strong> <code style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-dev-token</code><br>
-                            <strong style="color: #00ffff;">NATS Auth Token:</strong> <code style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-america</code>
+                            <strong style="color: #00ffff;">Web UI Password:</strong> <code
+                                style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize</code><br>
+                            <strong style="color: #00ffff;">API Token:</strong> <code
+                                style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-dev-token</code><br>
+                            <strong style="color: #00ffff;">NATS Auth Token:</strong> <code
+                                style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-america</code>
                         </div>
                         <p style="margin-top: 12px; color: #ff8c00; font-size: 0.9em;">
-                            <strong>⚠️ Production:</strong> Use custom tokens with <code style="color: #00ffff;">-api-token</code> and <code style="color: #00ffff;">-nats-token</code> flags
+                            <strong>⚠️ Production:</strong> Use custom tokens with <code
+                                style="color: #00ffff;">-api-token</code> and <code
+                                style="color: #00ffff;">-nats-token</code> flags
                         </p>
                     </div>
                 </div>
 
 
-                <div style="background: rgba(0, 40, 80, 0.4); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 8px; padding: 20px; margin-top: 30px;">
+                <div
+                    style="background: rgba(0, 40, 80, 0.4); border: 1px solid rgba(0, 255, 255, 0.3); border-radius: 8px; padding: 20px; margin-top: 30px;">
                     <h4 style="color: #00ffff; margin-bottom: 15px;">🔧 CLI Configuration Options</h4>
                     <div class="command-box" style="background: rgba(0, 0, 0, 0.4);">
                         <pre><code>OPTIONS:
@@ -338,12 +357,16 @@ go run ./cmd/microlith/main.go</code></pre>
                         NATS messaging on port <span class="highlight">4222</span>
                     </p>
 
-                    <div style="background: rgba(0, 80, 40, 0.4); border: 1px solid rgba(0, 255, 136, 0.4); border-left: 4px solid #00ff88; border-radius: 8px; padding: 20px; margin-top: 20px;">
+                    <div
+                        style="background: rgba(0, 80, 40, 0.4); border: 1px solid rgba(0, 255, 136, 0.4); border-left: 4px solid #00ff88; border-radius: 8px; padding: 20px; margin-top: 20px;">
                         <h4 style="color: #00ff88; margin-bottom: 15px;">🔐 Default Credentials</h4>
                         <div style="font-family: 'Courier New', monospace; color: #aaa; line-height: 1.6;">
-                            <strong style="color: #00ffff;">Web UI Password:</strong> <code style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize</code><br>
-                            <strong style="color: #00ffff;">API Token:</strong> <code style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-dev-token</code><br>
-                            <strong style="color: #00ffff;">NATS Auth Token:</strong> <code style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-america</code>
+                            <strong style="color: #00ffff;">Web UI Password:</strong> <code
+                                style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize</code><br>
+                            <strong style="color: #00ffff;">API Token:</strong> <code
+                                style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-dev-token</code><br>
+                            <strong style="color: #00ffff;">NATS Auth Token:</strong> <code
+                                style="color: #00ff88; background: rgba(0, 0, 0, 0.3); padding: 2px 6px; border-radius: 3px;">reindustrialize-america</code>
                         </div>
                         <p style="margin-top: 12px; color: #ff8c00; font-size: 0.9em;">
                             <strong>⚠️ Production:</strong> Use custom tokens with CLI flags or environment variables
@@ -516,17 +539,20 @@ nats kv put CONSTELLATION_GLOBAL_STATE "$ENTITY_ID" \
                 <div class="feature-card coming-soon">
                     <h4>👁️ vision2constellation</h4>
                     <p>
-                        Real-time video edge inference system with modular ML detection for the Constellation Overwatch Fabric.
+                        Real-time video edge inference system with modular ML detection for the Constellation Overwatch
+                        Fabric.
                     </p>
                     <p style="margin-top: 15px; color: #ff8c00; font-size: 0.9em;">
-                        <strong>Models:</strong> YOLOE C4ISR threat detection, RT-DETR, SAM2 segmentation, Moondream vision-language
+                        <strong>Models:</strong> YOLOE C4ISR threat detection, RT-DETR, SAM2 segmentation, Moondream
+                        vision-language
                     </p>
                     <p style="margin-top: 10px; color: #ff8c00; font-size: 0.9em;">
-                        <strong>Features:</strong> Multi-model detection, NATS JetStream bridge, video frame streaming, device fingerprinting, C4ISR threat intelligence
+                        <strong>Features:</strong> Multi-model detection, NATS JetStream bridge, video frame streaming,
+                        device fingerprinting, C4ISR threat intelligence
                     </p>
                     <p style="margin-top: 10px; color: #ff8c00; font-size: 0.9em;">
-                        <strong>Repo:</strong> <a
-                            href="https://github.com/Constellation-Overwatch/vision2constellation" target="_blank"
+                        <strong>Repo:</strong> <a href="https://github.com/Constellation-Overwatch/vision2constellation"
+                            target="_blank"
                             style="color: #ff8c00;">github.com/Constellation-Overwatch/vision2constellation</a>
                     </p>
                 </div>
@@ -534,34 +560,37 @@ nats kv put CONSTELLATION_GLOBAL_STATE "$ENTITY_ID" \
 
             <p style="margin-top: 30px; text-align: center; color: #aaa; font-size: 1.1em;">
                 Stay tuned! Follow us for updates:
-                <div style="display: inline-flex; gap: 15px; align-items: center; flex-wrap: wrap;">
-                    <a href="https://github.com/Constellation-Overwatch/constellation-overwatch" target="_blank"
-                        style="display: inline-flex; align-items: center; gap: 5px;">
-                        <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
-                            <path
-                                d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
-                        </svg>
-                        GitHub
-                    </a>
-                    <a href="https://discord.gg/hqJebrXmhQ" target="_blank"
-                        style="display: inline-flex; align-items: center; gap: 5px; color: #5865f2;">
-                        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0002 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9554 2.4189-2.1568 2.4189Z"/>
-                        </svg>
-                        Discord
-                    </a>
-                </div>
+            <div style="display: inline-flex; gap: 15px; align-items: center; flex-wrap: wrap;">
+                <a href="https://github.com/Constellation-Overwatch/constellation-overwatch" target="_blank"
+                    style="display: inline-flex; align-items: center; gap: 5px;">
+                    <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
+                        <path
+                            d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z" />
+                    </svg>
+                    GitHub
+                </a>
+                <a href="https://discord.gg/hqJebrXmhQ" target="_blank"
+                    style="display: inline-flex; align-items: center; gap: 5px; color: #5865f2;">
+                    <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0002 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9554 2.4189-2.1568 2.4189Z" />
+                    </svg>
+                    Discord
+                </a>
+            </div>
             </p>
         </section>
 
         <section id="toolbelt">
             <h2>IaC Toolbelt <span class="badge">DEPLOY</span></h2>
-            
+
             <p style="color: #aaa; font-size: 1.1em; line-height: 1.5; margin-bottom: 30px; text-align: center;">
-                Deploy Constellation Overwatch to production cloud infrastructure with automated provisioning, security hardening, and container orchestration.
+                Deploy Constellation Overwatch to production cloud infrastructure with automated provisioning, security
+                hardening, and container orchestration.
             </p>
-            
-            <div style="display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 30px;">
+
+            <div
+                style="display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap; margin-bottom: 30px;">
                 <a href="https://github.com/Constellation-Overwatch/toolbelt" target="_blank" style="display: inline-flex; align-items: center; gap: 8px; background: rgba(0, 40, 80, 0.6); 
                           padding: 12px 20px; border-radius: 8px; border: 1px solid rgba(0, 255, 255, 0.3); 
                           color: #00ffff; text-decoration: none; font-weight: 600; transition: all 0.3s ease;
@@ -619,14 +648,16 @@ task deploy</code></pre>
                 <div class="feature-card">
                     <h4 style="display: flex; align-items: center; gap: 8px;">
                         <svg width="20" height="20" viewBox="0 0 24 24" fill="#5865f2">
-                            <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0002 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9554 2.4189-2.1568 2.4189Z"/>
+                            <path
+                                d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0002 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9554 2.4189-2.1568 2.4189Z" />
                         </svg>
                         Join Discord Community
                     </h4>
                     <p><a href="https://discord.gg/hqJebrXmhQ" target="_blank" style="color: #5865f2;">
                             Connect with developers and users
                         </a></p>
-                    <p style="color: #aaa; font-size: 0.9em; margin-top: 8px;">Help grow and strengthen open source assets for advanced engineering in drones, robotics, and sensor deployments</p>
+                    <p style="color: #aaa; font-size: 0.9em; margin-top: 8px;">Help grow and strengthen open source
+                        assets for advanced engineering in drones, robotics, and sensor deployments</p>
                 </div>
             </div>
         </section>
@@ -638,7 +669,8 @@ task deploy</code></pre>
                 <cite>— Jamieson Greer</cite>
             </blockquote>
             <p>Built with 🧑‍🚀❓️💙👽🌌 for the open source community</p>
-            <p style="margin-top: 10px; display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap;">
+            <p
+                style="margin-top: 10px; display: flex; gap: 15px; justify-content: center; align-items: center; flex-wrap: wrap;">
                 <a href="https://github.com/Constellation-Overwatch" target="_blank"
                     style="display: inline-flex; align-items: center; gap: 5px;">
                     <svg width="16" height="16" viewBox="0 0 16 16" fill="currentColor">
@@ -650,7 +682,8 @@ task deploy</code></pre>
                 <a href="https://discord.gg/hqJebrXmhQ" target="_blank"
                     style="display: inline-flex; align-items: center; gap: 5px; color: #5865f2;">
                     <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor">
-                        <path d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0002 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9554 2.4189-2.1568 2.4189Z"/>
+                        <path
+                            d="M20.317 4.3698a19.7913 19.7913 0 00-4.8851-1.5152.0741.0741 0 00-.0785.0371c-.211.3753-.4447.8648-.6083 1.2495-1.8447-.2762-3.68-.2762-5.4868 0-.1636-.3933-.4058-.8742-.6177-1.2495a.077.077 0 00-.0785-.037 19.7363 19.7363 0 00-4.8852 1.515.0699.0699 0 00-.0321.0277C.5334 9.0458-.319 13.5799.0992 18.0578a.0824.0824 0 00.0312.0561c2.0528 1.5076 4.0413 2.4228 5.9929 3.0294a.0777.0777 0 00.0842-.0276c.4616-.6304.8731-1.2952 1.226-1.9942a.076.076 0 00-.0416-.1057c-.6528-.2476-1.2743-.5495-1.8722-.8923a.077.077 0 01-.0076-.1277c.1258-.0943.2517-.1923.3718-.2914a.0743.0743 0 01.0776-.0105c3.9278 1.7933 8.18 1.7933 12.0614 0a.0739.0739 0 01.0785.0095c.1202.099.246.1981.3728.2924a.077.077 0 01-.0066.1276 12.2986 12.2986 0 01-1.873.8914.0766.0766 0 00-.0407.1067c.3604.698.7719 1.3628 1.225 1.9932a.076.076 0 00.0842.0286c1.961-.6067 3.9495-1.5219 6.0023-3.0294a.077.077 0 00.0313-.0552c.5004-5.177-.8382-9.6739-3.5485-13.6604a.061.061 0 00-.0312-.0286zM8.02 15.3312c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9555-2.4189 2.157-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419-.0002 1.3332-.9555 2.4189-2.1569 2.4189zm7.9748 0c-1.1825 0-2.1569-1.0857-2.1569-2.419 0-1.3332.9554-2.4189 2.1569-2.4189 1.2108 0 2.1757 1.0952 2.1568 2.419 0 1.3332-.9554 2.4189-2.1568 2.4189Z" />
                     </svg>
                     Join Discord
                 </a>
