@@ -181,20 +181,15 @@ h3 {
 }
 
 .header-install-cmd {
-    display: flex;
+    display: inline-flex;
     align-items: center;
-    justify-content: space-between;
     gap: 10px;
-    min-width: 500px;
-    max-width: 100%;
 }
 
 .install-cmd-text {
     color: #00ff88;
     font-family: 'Courier New', monospace;
     font-size: 0.9em;
-    word-break: break-all;
-    flex: 1;
 }
 
 .header-copy-btn {
@@ -476,12 +471,12 @@ footer {
 
     /* Header install command - tablet */
     .header-install-cmd {
-        min-width: auto;
-        width: 100%;
+        flex-wrap: wrap;
     }
 
     .install-cmd-text {
-        font-size: 0.8em;
+        font-size: 0.75em;
+        word-break: break-all;
     }
 
     .tech-stack {
@@ -532,23 +527,8 @@ footer {
     }
 
     /* Header install command - mobile */
-    .header-install-cmd {
-        flex-direction: column;
-        align-items: stretch;
-        gap: 12px;
-        padding: 12px;
-    }
-
     .install-cmd-text {
-        font-size: 0.7em;
-        line-height: 1.4;
-        text-align: left;
-    }
-
-    .header-copy-btn {
-        align-self: flex-end;
-        min-width: 50px;
-        padding: 8px 12px;
+        font-size: 0.65em;
     }
 
     .step-number {

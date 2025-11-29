@@ -1,33 +1,25 @@
 // Copy to clipboard functionality
 function copyToClipboard(button) {
+    // Prevent double-clicks
+    if (button.classList.contains('copied')) return;
+
     const codeBlock = button.parentElement.querySelector('code');
     const text = codeBlock.textContent;
 
-    // Store original content (handles both SVG icons and text)
-    const originalContent = button.innerHTML;
-    const hasIcon = button.querySelector('svg') !== null;
+    // Store original SVG
+    const originalSVG = button.innerHTML;
 
     navigator.clipboard.writeText(text).then(() => {
-        // Visual feedback
         button.classList.add('copied');
-        if (hasIcon) {
-            // Show checkmark icon for icon buttons
-            button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
-        } else {
-            button.textContent = 'Copied';
-        }
+        // Show checkmark icon
+        button.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41z"/></svg>';
 
-        // Reset after 2 seconds
         setTimeout(() => {
             button.classList.remove('copied');
-            button.innerHTML = originalContent;
+            button.innerHTML = originalSVG;
         }, 2000);
     }).catch(err => {
         console.error('Failed to copy text: ', err);
-        button.textContent = 'Failed';
-        setTimeout(() => {
-            button.innerHTML = originalContent;
-        }, 2000);
     });
 }
 
