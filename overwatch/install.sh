@@ -10,12 +10,11 @@ GITHUB_REPO="Constellation-Overwatch/constellation-overwatch"
 BINARY_NAME="overwatch"
 APP_VERSION=""  # Will be set during install
 
-# Installation paths (UV-style hierarchy)
-# Priority: OVERWATCH_INSTALL_DIR > ~/.overwatch
+# Installation paths - everything under ~/.overwatch for simplicity
+# Works identically on Linux/macOS/WSL
 OVERWATCH_HOME="${OVERWATCH_HOME:-$HOME/.overwatch}"
 INSTALL_DIR="${OVERWATCH_INSTALL_DIR:-$OVERWATCH_HOME/bin}"
-CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/overwatch"
-DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/overwatch"
+DATA_DIR="$OVERWATCH_HOME/data"
 
 # Control flags
 NO_MODIFY_PATH="${OVERWATCH_NO_MODIFY_PATH:-0}"
@@ -197,17 +196,13 @@ EOF
 # Write install receipt for upgrade tracking
 write_receipt() {
     local version="$1"
-    local receipt_path="$CONFIG_DIR/receipt.json"
-
-    mkdir -p "$CONFIG_DIR"
+    local receipt_path="$OVERWATCH_HOME/receipt.json"
 
     cat <<EOF > "$receipt_path"
 {
   "version": "$version",
   "installed_at": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
-  "platform": "${OS}/${ARCH}",
-  "install_dir": "$INSTALL_DIR",
-  "overwatch_home": "$OVERWATCH_HOME"
+  "platform": "${OS}/${ARCH}"
 }
 EOF
     say_verbose "Install receipt written to $receipt_path"
@@ -284,9 +279,8 @@ download_and_install() {
         tar -xzf "$archive_name"
     fi
 
-    # Create install directories
+    # Create install directories (DATA_DIR is under OVERWATCH_HOME)
     mkdir -p "$INSTALL_DIR" || error "Failed to create install directory: $INSTALL_DIR"
-    mkdir -p "$OVERWATCH_HOME" || error "Failed to create overwatch home: $OVERWATCH_HOME"
     mkdir -p "$DATA_DIR" || error "Failed to create data directory: $DATA_DIR"
 
     # Install the binary
@@ -411,12 +405,13 @@ ${BOLD}EXAMPLES:${NC}
     OVERWATCH_NO_MODIFY_PATH=1 curl -fsSL https://constellation-overwatch.github.io/overwatch/install.sh | bash
 
 ${BOLD}INSTALL LOCATIONS:${NC}
-    ~/.overwatch/bin/overwatch    The binary
-    ~/.overwatch/env              Shell environment script (sh/bash/zsh)
-    ~/.overwatch/env.fish         Fish shell environment script
-    ~/.overwatch/.env.example     Example configuration file
-    ~/.config/overwatch/          Config and receipt storage
-    ~/.local/share/overwatch/     Default data directory
+    ~/.overwatch/
+    ├── bin/overwatch     Binary
+    ├── data/             Database + NATS storage
+    ├── env               PATH script (sh/bash/zsh)
+    ├── env.fish          PATH script (fish)
+    ├── .env              Configuration
+    └── receipt.json      Install metadata
 EOF
 }
 
