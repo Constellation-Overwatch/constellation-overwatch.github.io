@@ -213,40 +213,29 @@ EOF
     say_verbose "Install receipt written to $receipt_path"
 }
 
-# Create default .env template if it doesn't exist
+# Create ready-to-use .env config
 create_default_env() {
-    local env_file="$OVERWATCH_HOME/.env.example"
+    local env_file="$OVERWATCH_HOME/.env"
 
-    if [ ! -f "$env_file" ]; then
-        cat <<'EOF' > "$env_file"
-# =============================================================================
-# Constellation Overwatch - Configuration
-# =============================================================================
-# Copy this file to .env and customize as needed.
-# Run 'overwatch' from this directory or use: overwatch -env /path/to/.env
-# =============================================================================
-
-# API Authentication
-API_BEARER_TOKEN=change-me-in-production
-
-# NATS Authentication
-NATS_ENABLE_AUTH=true
-NATS_AUTH_TOKEN=change-me-in-production
-
-# Data Storage (relative to working directory, or use absolute paths)
-# DB_PATH=./data/db/constellation.db
-# NATS_DATA_DIR=./data/overwatch
-
-# Network (Optional)
-# HOST=0.0.0.0
-# PORT=8080
-# NATS_PORT=4222
-
-# Web UI Authentication (Optional - leave empty to disable)
-# WEB_UI_PASSWORD=
-EOF
-        say_verbose "Created example config at $env_file"
+    # Don't overwrite existing config
+    if [ -f "$env_file" ]; then
+        say_verbose "Config already exists at $env_file"
+        return 0
     fi
+
+    cat <<EOF > "$env_file"
+# Constellation Overwatch Configuration
+# Data: $DATA_DIR/
+
+API_BEARER_TOKEN=reindustrialize-dev-token
+NATS_ENABLE_AUTH=true
+NATS_AUTH_TOKEN=reindustrialize-america
+
+DB_PATH=$DATA_DIR/db/constellation.db
+NATS_DATA_DIR=$DATA_DIR/nats
+EOF
+
+    say_verbose "Created config at $env_file"
 }
 
 # Download and install binary
@@ -491,22 +480,18 @@ main() {
     printf "${GREEN}${BOLD}Overwatch installed!${NC}\n"
     echo ""
 
+    # Show single command to get started (no restart needed)
     if [ "$needs_shell_restart" = "1" ]; then
-        say "To get started, run:"
+        say "To start now, run:"
         echo ""
-        printf "    ${CYAN}source \"\$HOME/.overwatch/env\"${NC}    ${BLUE}(sh/bash/zsh)${NC}\n"
-        printf "    ${CYAN}source \"\$HOME/.overwatch/env.fish\"${NC}  ${BLUE}(fish)${NC}\n"
+        printf "    ${CYAN}source ~/.overwatch/env && overwatch${NC}\n"
+    else
+        say "To start, run:"
         echo ""
+        printf "    ${CYAN}overwatch${NC}\n"
     fi
-
-    say "Then start the server:"
     echo ""
-    printf "    ${CYAN}overwatch${NC}\n"
-    echo ""
-    say "Visit ${CYAN}http://localhost:8080${NC} to access the dashboard"
-    echo ""
-    printf "${BLUE}Docs${NC}:   https://constellation-overwatch.github.io\n"
-    printf "${BLUE}GitHub${NC}: https://github.com/${GITHUB_REPO}\n"
+    say "Then visit ${CYAN}http://localhost:8080${NC}"
     echo ""
 }
 
