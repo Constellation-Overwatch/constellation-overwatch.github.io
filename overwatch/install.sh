@@ -3,11 +3,23 @@ set -euo pipefail
 
 # Constellation Overwatch installer script
 # Downloads platform-specific binaries from GitHub Releases
+# Installs to ~/.overwatch/ with proper env script setup (UV-style)
 
 # Configuration
 GITHUB_REPO="Constellation-Overwatch/constellation-overwatch"
 BINARY_NAME="overwatch"
-INSTALL_DIR="${INSTALL_DIR:-$HOME/.local/bin}"
+APP_VERSION=""  # Will be set during install
+
+# Installation paths (UV-style hierarchy)
+# Priority: OVERWATCH_INSTALL_DIR > ~/.overwatch
+OVERWATCH_HOME="${OVERWATCH_HOME:-$HOME/.overwatch}"
+INSTALL_DIR="${OVERWATCH_INSTALL_DIR:-$OVERWATCH_HOME/bin}"
+CONFIG_DIR="${XDG_CONFIG_HOME:-$HOME/.config}/overwatch"
+DATA_DIR="${XDG_DATA_HOME:-$HOME/.local/share}/overwatch"
+
+# Control flags
+NO_MODIFY_PATH="${OVERWATCH_NO_MODIFY_PATH:-0}"
+PRINT_VERBOSE="${OVERWATCH_VERBOSE:-0}"
 
 # Colors for output
 RED='\033[0;31m'
@@ -15,15 +27,26 @@ GREEN='\033[0;32m'
 YELLOW='\033[1;33m'
 BLUE='\033[0;34m'
 CYAN='\033[0;36m'
+BOLD='\033[1m'
 NC='\033[0m' # No Color
 
 # Helper functions
+say() {
+    printf "%s\n" "$1"
+}
+
+say_verbose() {
+    if [ "$PRINT_VERBOSE" = "1" ]; then
+        printf "%s\n" "$1"
+    fi
+}
+
 info() {
     printf "${BLUE}info${NC}: %s\n" "$1"
 }
 
 warn() {
-    printf "${YELLOW}warning${NC}: %s\n" "$1"
+    printf "${YELLOW}warn${NC}: %s\n" "$1"
 }
 
 error() {
@@ -69,7 +92,7 @@ detect_platform() {
     OS="$os"
     ARCH="$arch"
 
-    info "Detected platform: ${OS}/${ARCH}"
+    say_verbose "Detected platform: ${OS}/${ARCH}"
 }
 
 # Get latest version from GitHub API
@@ -101,13 +124,13 @@ verify_checksum() {
 
     filename=$(basename "$file")
 
-    info "Verifying checksum..."
+    say_verbose "Verifying checksum..."
 
     # Extract expected hash from checksums file
     expected_hash=$(grep "$filename" "$checksums_file" | awk '{print $1}')
 
     if [ -z "$expected_hash" ]; then
-        warn "Could not find checksum for $filename, skipping verification"
+        say_verbose "Could not find checksum for $filename, skipping verification"
         return 0
     fi
 
@@ -117,16 +140,113 @@ verify_checksum() {
     elif command_exists shasum; then
         actual_hash=$(shasum -a 256 "$file" | awk '{print $1}')
     else
-        warn "No checksum tool available, skipping verification"
+        say_verbose "No checksum tool available, skipping verification"
         return 0
     fi
 
     if [ "$expected_hash" = "$actual_hash" ]; then
-        success "Checksum verified"
+        say_verbose "Checksum verified"
         return 0
     fi
 
     error "Checksum verification failed! Expected: $expected_hash, Got: $actual_hash"
+}
+
+# Write the sh/bash/zsh env script
+write_env_script_sh() {
+    local install_dir_expr="$1"
+    local env_script_path="$2"
+
+    cat <<EOF > "$env_script_path"
+#!/bin/sh
+# Constellation Overwatch environment setup
+# Add overwatch to PATH if not already present
+
+case ":\${PATH}:" in
+    *:"$install_dir_expr":*)
+        ;;
+    *)
+        export PATH="$install_dir_expr:\$PATH"
+        ;;
+esac
+
+# Optional: Set OVERWATCH_HOME for config discovery
+export OVERWATCH_HOME="$OVERWATCH_HOME"
+EOF
+    chmod +x "$env_script_path"
+}
+
+# Write the fish env script
+write_env_script_fish() {
+    local install_dir_expr="$1"
+    local env_script_path="$2"
+
+    cat <<EOF > "$env_script_path"
+# Constellation Overwatch environment setup
+# Add overwatch to PATH if not already present
+
+if not contains "$install_dir_expr" \$PATH
+    set -gx PATH "$install_dir_expr" \$PATH
+end
+
+# Optional: Set OVERWATCH_HOME for config discovery
+set -gx OVERWATCH_HOME "$OVERWATCH_HOME"
+EOF
+}
+
+# Write install receipt for upgrade tracking
+write_receipt() {
+    local version="$1"
+    local receipt_path="$CONFIG_DIR/receipt.json"
+
+    mkdir -p "$CONFIG_DIR"
+
+    cat <<EOF > "$receipt_path"
+{
+  "version": "$version",
+  "installed_at": "$(date -u +"%Y-%m-%dT%H:%M:%SZ")",
+  "platform": "${OS}/${ARCH}",
+  "install_dir": "$INSTALL_DIR",
+  "overwatch_home": "$OVERWATCH_HOME"
+}
+EOF
+    say_verbose "Install receipt written to $receipt_path"
+}
+
+# Create default .env template if it doesn't exist
+create_default_env() {
+    local env_file="$OVERWATCH_HOME/.env.example"
+
+    if [ ! -f "$env_file" ]; then
+        cat <<'EOF' > "$env_file"
+# =============================================================================
+# Constellation Overwatch - Configuration
+# =============================================================================
+# Copy this file to .env and customize as needed.
+# Run 'overwatch' from this directory or use: overwatch -env /path/to/.env
+# =============================================================================
+
+# API Authentication
+API_BEARER_TOKEN=change-me-in-production
+
+# NATS Authentication
+NATS_ENABLE_AUTH=true
+NATS_AUTH_TOKEN=change-me-in-production
+
+# Data Storage (relative to working directory, or use absolute paths)
+# DB_PATH=./data/db/constellation.db
+# NATS_DATA_DIR=./data/overwatch
+
+# Network (Optional)
+# HOST=0.0.0.0
+# PORT=8080
+# NATS_PORT=4222
+
+# Web UI Authentication (Optional - leave empty to disable)
+# WEB_UI_PASSWORD=
+EOF
+        say_verbose "Created example config at $env_file"
+    fi
 }
 
 # Download and install binary
@@ -134,6 +254,8 @@ download_and_install() {
     local version archive_name download_url checksums_url
 
     version="${1:-$(get_latest_version)}"
+    APP_VERSION="$version"
+
     TEMP_DIR=$(mktemp -d)
     trap 'rm -rf "$TEMP_DIR"' EXIT
 
@@ -141,7 +263,7 @@ download_and_install() {
     download_url="https://github.com/${GITHUB_REPO}/releases/download/${version}/${archive_name}"
     checksums_url="https://github.com/${GITHUB_REPO}/releases/download/${version}/${BINARY_NAME}_${version}_checksums.txt"
 
-    info "Downloading ${BINARY_NAME} ${version} for ${OS}/${ARCH}..."
+    say "Downloading ${BINARY_NAME} ${version} ${OS}/${ARCH}"
 
     # Download archive
     if command_exists curl; then
@@ -160,7 +282,7 @@ download_and_install() {
     fi
 
     # Extract archive
-    info "Extracting..."
+    say_verbose "Extracting..."
     cd "$TEMP_DIR"
 
     if [ "$EXT" = "zip" ]; then
@@ -173,8 +295,10 @@ download_and_install() {
         tar -xzf "$archive_name"
     fi
 
-    # Create install directory
+    # Create install directories
     mkdir -p "$INSTALL_DIR" || error "Failed to create install directory: $INSTALL_DIR"
+    mkdir -p "$OVERWATCH_HOME" || error "Failed to create overwatch home: $OVERWATCH_HOME"
+    mkdir -p "$DATA_DIR" || error "Failed to create data directory: $DATA_DIR"
 
     # Install the binary
     if [ -w "$INSTALL_DIR" ]; then
@@ -184,110 +308,133 @@ download_and_install() {
         sudo install -m 755 "$BINARY_NAME" "$INSTALL_DIR/"
     fi
 
-    success "Installed $BINARY_NAME to $INSTALL_DIR/$BINARY_NAME"
+    say "Installing to $INSTALL_DIR"
+    say "  $BINARY_NAME"
 }
 
-# Update PATH if needed
-update_path() {
-    local shell_rc
+# Setup PATH via env scripts (UV-style)
+setup_env_scripts() {
+    local env_script_path="$OVERWATCH_HOME/env"
+    local fish_env_script_path="$OVERWATCH_HOME/env.fish"
+    local install_dir_expr="\$HOME/.overwatch/bin"
+    local path_updated=0
 
-    # Check if install directory is already in PATH
-    if echo "$PATH" | tr ':' '\n' | grep -qx "$INSTALL_DIR"; then
-        info "$INSTALL_DIR is already in PATH"
+    # Use literal path if custom install location
+    if [ "$OVERWATCH_HOME" != "$HOME/.overwatch" ]; then
+        install_dir_expr="$INSTALL_DIR"
+    fi
+
+    # Write env scripts
+    write_env_script_sh "$install_dir_expr" "$env_script_path"
+    write_env_script_fish "$install_dir_expr" "$fish_env_script_path"
+
+    say_verbose "Created $env_script_path"
+    say_verbose "Created $fish_env_script_path"
+
+    if [ "$NO_MODIFY_PATH" = "1" ]; then
         return 0
     fi
 
-    # Determine shell configuration file
-    case "${SHELL:-}" in
-        */zsh)  shell_rc="$HOME/.zshrc" ;;
-        */bash)
-            if [ -f "$HOME/.bashrc" ]; then
-                shell_rc="$HOME/.bashrc"
-            else
-                shell_rc="$HOME/.bash_profile"
-            fi
-            ;;
-        */fish) shell_rc="$HOME/.config/fish/config.fish" ;;
-        *)
-            if [ -f "$HOME/.profile" ]; then
-                shell_rc="$HOME/.profile"
-            else
-                warn "Could not determine shell configuration file"
-                warn "Please add $INSTALL_DIR to your PATH manually"
-                return 1
-            fi
-            ;;
-    esac
+    # Add to shell rc files
+    local source_line=". \"\$HOME/.overwatch/env\""
+    local source_line_fish="source \"\$HOME/.overwatch/env.fish\""
 
-    # Add to PATH if not already present
-    if [ -f "$shell_rc" ] && grep -q "$INSTALL_DIR" "$shell_rc" 2>/dev/null; then
-        info "PATH already configured in $shell_rc"
-    else
-        info "Updating PATH in $shell_rc"
-        {
-            echo ""
-            echo "# Added by Constellation Overwatch installer"
-            echo "export PATH=\"$INSTALL_DIR:\$PATH\""
-        } >> "$shell_rc"
-        success "Added $INSTALL_DIR to PATH in $shell_rc"
-
-        info "Please restart your shell or run:"
-        printf "  ${CYAN}source %s${NC}\n" "$shell_rc"
+    # Use literal paths if custom location
+    if [ "$OVERWATCH_HOME" != "$HOME/.overwatch" ]; then
+        source_line=". \"$env_script_path\""
+        source_line_fish="source \"$fish_env_script_path\""
     fi
-}
 
-# Verify installation
-verify_installation() {
-    if [ -x "$INSTALL_DIR/$BINARY_NAME" ]; then
-        local version
-        version=$("$INSTALL_DIR/$BINARY_NAME" -version 2>/dev/null || echo "unknown")
-        success "$BINARY_NAME installed successfully!"
-        info "Version: $version"
-        info "Location: $INSTALL_DIR/$BINARY_NAME"
-
-        # Test if it's in PATH
-        if command_exists "$BINARY_NAME"; then
-            info "You can now run: ${CYAN}$BINARY_NAME --help${NC}"
-        else
-            warn "Binary not in PATH. You may need to restart your shell."
-            info "Or run: ${CYAN}$INSTALL_DIR/$BINARY_NAME --help${NC}"
+    # Update .profile (covers most POSIX shells)
+    if [ -f "$HOME/.profile" ]; then
+        if ! grep -qF ".overwatch/env" "$HOME/.profile" 2>/dev/null; then
+            echo "" >> "$HOME/.profile"
+            echo "$source_line" >> "$HOME/.profile"
+            path_updated=1
         fi
-    else
-        error "Installation verification failed"
     fi
+
+    # Update .bashrc if it exists
+    if [ -f "$HOME/.bashrc" ]; then
+        if ! grep -qF ".overwatch/env" "$HOME/.bashrc" 2>/dev/null; then
+            echo "" >> "$HOME/.bashrc"
+            echo "$source_line" >> "$HOME/.bashrc"
+            path_updated=1
+        fi
+    fi
+
+    # Update .zshrc if it exists (or create if zsh is default shell)
+    local zshrc="$HOME/.zshrc"
+    if [ -f "$zshrc" ] || [ "${SHELL:-}" = "$(command -v zsh 2>/dev/null)" ]; then
+        if ! grep -qF ".overwatch/env" "$zshrc" 2>/dev/null; then
+            echo "" >> "$zshrc"
+            echo "$source_line" >> "$zshrc"
+            path_updated=1
+        fi
+    fi
+
+    # Update fish config if it exists
+    local fish_config="$HOME/.config/fish/conf.d"
+    if [ -d "$HOME/.config/fish" ]; then
+        mkdir -p "$fish_config"
+        local fish_env_link="$fish_config/overwatch.fish"
+        if [ ! -f "$fish_env_link" ]; then
+            echo "$source_line_fish" > "$fish_env_link"
+            path_updated=1
+        fi
+    fi
+
+    if [ "$path_updated" = "1" ]; then
+        return 1  # Signal that shell restart is needed
+    fi
+    return 0
 }
 
 # Print usage
 usage() {
     cat <<EOF
-Constellation Overwatch Installer
+${BOLD}Constellation Overwatch Installer${NC}
 
-USAGE:
+${BOLD}USAGE:${NC}
     install.sh [OPTIONS]
 
-OPTIONS:
-    -h, --help          Show this help message
-    -v, --version VER   Install a specific version (e.g., v0.0.5-beta)
-    -d, --dir DIR       Install to a specific directory (default: ~/.local/bin)
+${BOLD}OPTIONS:${NC}
+    -h, --help              Show this help message
+    -v, --version VER       Install a specific version (e.g., v0.0.5-beta)
+    -q, --quiet             Suppress non-essential output
+    --verbose               Enable verbose output
+    --no-modify-path        Don't modify PATH in shell configs
 
-ENVIRONMENT VARIABLES:
-    INSTALL_DIR         Override default installation directory
+${BOLD}ENVIRONMENT VARIABLES:${NC}
+    OVERWATCH_HOME          Override overwatch home (default: ~/.overwatch)
+    OVERWATCH_INSTALL_DIR   Override binary install location (default: ~/.overwatch/bin)
+    OVERWATCH_NO_MODIFY_PATH  Set to 1 to skip PATH configuration
+    OVERWATCH_VERBOSE       Set to 1 for verbose output
 
-EXAMPLES:
+${BOLD}EXAMPLES:${NC}
     # Install latest version
-    curl -fsSL https://raw.githubusercontent.com/${GITHUB_REPO}/main/install.sh | bash
+    curl -fsSL https://constellation-overwatch.github.io/overwatch/install.sh | bash
 
     # Install specific version
-    curl -fsSL https://raw.githubusercontent.com/${GITHUB_REPO}/main/install.sh | bash -s -- -v v0.0.5-beta
+    curl -fsSL https://constellation-overwatch.github.io/overwatch/install.sh | bash -s -- -v v0.0.5-beta
 
-    # Install to custom directory
-    INSTALL_DIR=/opt/bin curl -fsSL https://raw.githubusercontent.com/${GITHUB_REPO}/main/install.sh | bash
+    # Install without modifying PATH
+    OVERWATCH_NO_MODIFY_PATH=1 curl -fsSL https://constellation-overwatch.github.io/overwatch/install.sh | bash
+
+${BOLD}INSTALL LOCATIONS:${NC}
+    ~/.overwatch/bin/overwatch    The binary
+    ~/.overwatch/env              Shell environment script (sh/bash/zsh)
+    ~/.overwatch/env.fish         Fish shell environment script
+    ~/.overwatch/.env.example     Example configuration file
+    ~/.config/overwatch/          Config and receipt storage
+    ~/.local/share/overwatch/     Default data directory
 EOF
 }
 
 # Main installation process
 main() {
     local version=""
+    local needs_shell_restart=0
 
     # Parse arguments
     while [ $# -gt 0 ]; do
@@ -300,38 +447,67 @@ main() {
                 version="$2"
                 shift 2
                 ;;
-            -d|--dir)
-                INSTALL_DIR="$2"
-                shift 2
+            -q|--quiet)
+                PRINT_VERBOSE=0
+                shift
+                ;;
+            --verbose)
+                PRINT_VERBOSE=1
+                shift
+                ;;
+            --no-modify-path)
+                NO_MODIFY_PATH=1
+                shift
                 ;;
             *)
-                error "Unknown option: $1"
+                error "Unknown option: $1. Use --help for usage."
                 ;;
         esac
     done
 
-    echo
-    printf "${CYAN}Constellation Overwatch Installer${NC}\n"
-    echo
+    echo ""
+    printf "${CYAN}${BOLD}Constellation Overwatch${NC}\n"
+    echo ""
 
     # Detect platform
     detect_platform
 
     # Install
     download_and_install "$version"
-    update_path
-    verify_installation
 
-    echo
-    printf "${GREEN}Installation complete!${NC}\n"
-    echo
-    printf "Next steps:\n"
-    printf "  1. Restart your shell or run: ${CYAN}source ~/.zshrc${NC} (or your shell's config)\n"
-    printf "  2. Start the server: ${CYAN}overwatch${NC}\n"
-    printf "  3. Visit: ${CYAN}http://localhost:8080${NC}\n"
-    echo
-    printf "Documentation: ${BLUE}https://constellation-overwatch.github.io${NC}\n"
-    printf "GitHub: ${BLUE}https://github.com/${GITHUB_REPO}${NC}\n"
+    # Setup env scripts and PATH
+    if ! setup_env_scripts; then
+        needs_shell_restart=1
+    fi
+
+    # Write install receipt
+    write_receipt "$APP_VERSION"
+
+    # Create example config
+    create_default_env
+
+    # Final output
+    echo ""
+    printf "${GREEN}${BOLD}Overwatch installed!${NC}\n"
+    echo ""
+
+    if [ "$needs_shell_restart" = "1" ]; then
+        say "To get started, run:"
+        echo ""
+        printf "    ${CYAN}source \"\$HOME/.overwatch/env\"${NC}    ${BLUE}(sh/bash/zsh)${NC}\n"
+        printf "    ${CYAN}source \"\$HOME/.overwatch/env.fish\"${NC}  ${BLUE}(fish)${NC}\n"
+        echo ""
+    fi
+
+    say "Then start the server:"
+    echo ""
+    printf "    ${CYAN}overwatch${NC}\n"
+    echo ""
+    say "Visit ${CYAN}http://localhost:8080${NC} to access the dashboard"
+    echo ""
+    printf "${BLUE}Docs${NC}:   https://constellation-overwatch.github.io\n"
+    printf "${BLUE}GitHub${NC}: https://github.com/${GITHUB_REPO}\n"
+    echo ""
 }
 
 main "$@"
